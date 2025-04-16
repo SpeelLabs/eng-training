@@ -10,12 +10,19 @@ description: この実践問題では、データベースの作成からデー�
 
 `book_store` という名前のデータベースを作成し、使用するように設定してください。
 
-**ヒント**:
+<details>
+
+<summary>ヒント</summary>
 
 * データベースを作成するには `CREATE DATABASE` コマンドを使います
-* データベースを使用するには `USE` コマンドを使います
 
-\<details> \<summary>解答例\</summary>
+- データベースを使用するには `USE` コマンドを使います
+
+</details>
+
+<details>
+
+<summary>解答例</summary>
 
 ```sql
 -- データベースの作成
@@ -25,25 +32,33 @@ CREATE DATABASE book_store;
 USE book_store;
 ```
 
-\</details>
+</details>
 
 #### 問題 1-2: 著者テーブルの作成
 
 以下の列を持つ `authors` テーブルを作成してください。
 
 * `id`: 整数型、主キー、自動採番
-* `name`: 文字列型(50文字まで)、NOT NULL制約あり
-* `email`: 文字列型(100文字まで)、UNIQUE制約あり
+* `name`: 文字列型 (50文字まで)、NOT NULL 制約あり
+* `email`: 文字列型 (100文字まで)、UNIQUE 制約あり
 * `birth_date`: 日付型
 * `biography`: 長いテキスト型
 
-**ヒント**:
+<details>
+
+<summary>ヒント</summary>
 
 * テーブルを作成するには `CREATE TABLE` コマンドを使います
-* 主キーには `PRIMARY KEY` 制約を指定します
+
+- 主キーには `PRIMARY KEY` 制約を指定します
+
 * 自動採番には `AUTO_INCREMENT` を使います
 
-\<details> \<summary>解答例\</summary>
+</details>
+
+<details>
+
+<summary>解答例</summary>
 
 ```sql
 CREATE TABLE authors (
@@ -55,26 +70,33 @@ CREATE TABLE authors (
 );
 ```
 
-\</details>
+</details>
 
 #### 問題 1-3: 書籍テーブルの作成
 
 以下の列を持つ `books` テーブルを作成してください。
 
 * `id`: 整数型、主キー、自動採番
-* `title`: 文字列型(100文字まで)、NOT NULL制約あり
+* `title`: 文字列型 (100文字まで)、NOT NULL 制約あり
 * `author_id`: 整数型、`authors` テーブルの `id` を参照する外部キー
-* `price`: 小数型(10桁、2桁小数点)、NOT NULL制約あり
+* `price`: 小数型 (10桁、2桁小数点)、NOT NULL 制約あり
 * `publication_date`: 日付型
-* `category`: 文字列型(50文字まで)
-* `stock`: 整数型、デフォルト値は0
+* `category`: 文字列型 (50文字まで)
+* `stock`: 整数型、デフォルト値は 0
 
-**ヒント**:
+<details>
+
+<summary>ヒント</summary>
 
 * 外部キーには `FOREIGN KEY` 制約を指定します
-* デフォルト値は `DEFAULT` キーワードで指定します
 
-\<details> \<summary>解答例\</summary>
+- デフォルト値は `DEFAULT` キーワードで指定します
+
+</details>
+
+<details>
+
+<summary>解答例</summary>
 
 ```sql
 CREATE TABLE books (
@@ -89,7 +111,7 @@ CREATE TABLE books (
 );
 ```
 
-\</details>
+</details>
 
 ### 2. データの追加
 
@@ -97,18 +119,21 @@ CREATE TABLE books (
 
 `authors` テーブルに以下の著者データを追加してください。
 
-| 名前   | メールアドレス            | 生年月日       | 経歴                       |
-| ---- | ------------------ | ---------- | ------------------------ |
-| 山田太郎 | yamada@example.com | 1975-05-15 | 日本のベストセラー作家。20冊以上の小説を執筆。 |
-| 佐藤花子 | sato@example.com   | 1980-10-20 | ミステリー小説の第一人者。推理作家賞を受賞。   |
-| 鈴木一郎 | suzuki@example.com | 1965-03-08 | プログラミング関連の技術書を多数出版。      |
+<table><thead><tr><th width="104.5999755859375">名前</th><th width="205.4000244140625">メールアドレス</th><th width="117.800048828125">生年月日</th><th>経歴</th></tr></thead><tbody><tr><td>山田太郎</td><td>yamada@example.com</td><td>1975-05-15</td><td>日本のベストセラー作家。20冊以上の小説を執筆。</td></tr><tr><td>佐藤花子</td><td>sato@example.com</td><td>1980-10-20</td><td>ミステリー小説の第一人者。推理作家賞を受賞。</td></tr><tr><td>鈴木一郎</td><td>suzuki@example.com</td><td>1965-03-08</td><td>プログラミング関連の技術書を多数出版。</td></tr></tbody></table>
 
-**ヒント**:
+<details>
+
+<summary>ヒント</summary>
 
 * データを追加するには `INSERT INTO` コマンドを使います
-* 複数行を一度に挿入することもできます
 
-\<details> \<summary>解答例\</summary>
+- 複数行を一度に挿入することもできます
+
+</details>
+
+<details>
+
+<summary>解答例</summary>
 
 ```sql
 INSERT INTO authors (name, email, birth_date, biography) VALUES
@@ -117,26 +142,27 @@ INSERT INTO authors (name, email, birth_date, biography) VALUES
 ('鈴木一郎', 'suzuki@example.com', '1965-03-08', 'プログラミング関連の技術書を多数出版。');
 ```
 
-\</details>
+</details>
 
 #### 問題 2-2: 書籍データの追加
 
 `books` テーブルに以下の書籍データを追加してください。
 
-| タイトル      | 著者ID | 価格   | 出版日        | カテゴリ  | 在庫数 |
-| --------- | ---- | ---- | ---------- | ----- | --- |
-| 夏の記憶      | 1    | 1500 | 2023-06-15 | 小説    | 25  |
-| 真夜中の密室    | 2    | 1800 | 2022-11-03 | ミステリー | 18  |
-| Python入門  | 3    | 2800 | 2024-01-10 | 技術書   | 35  |
-| 朝の光       | 1    | 1600 | 2024-03-20 | 小説    | 12  |
-| Java完全ガイド | 3    | 3200 | 2023-08-05 | 技術書   | 20  |
+<table><thead><tr><th width="164.79998779296875">タイトル</th><th width="81.60015869140625">著者ID</th><th width="80">価格</th><th width="164">出版日</th><th width="124">カテゴリ</th><th>在庫数</th></tr></thead><tbody><tr><td>夏の記憶</td><td>1</td><td>1500</td><td>2023-06-15</td><td>小説</td><td>25</td></tr><tr><td>真夜中の密室</td><td>2</td><td>1800</td><td>2022-11-03</td><td>ミステリー</td><td>18</td></tr><tr><td>Python入門</td><td>3</td><td>2800</td><td>2024-01-10</td><td>技術書</td><td>35</td></tr><tr><td>朝の光</td><td>1</td><td>1600</td><td>2024-03-20</td><td>小説</td><td>12</td></tr><tr><td>Java完全ガイド</td><td>3</td><td>3200</td><td>2023-08-05</td><td>技術書</td><td>20</td></tr></tbody></table>
 
-**ヒント**:
+<details>
+
+<summary>ヒント</summary>
 
 * 日付は 'YYYY-MM-DD' 形式で指定します
-* 外部キーの値は参照先のテーブルに存在する値である必要があります
 
-\<details> \<summary>解答例\</summary>
+- 外部キーの値は参照先のテーブルに存在する値である必要があります
+
+</details>
+
+<details>
+
+<summary>解答例</summary>
 
 ```sql
 INSERT INTO books (title, author_id, price, publication_date, category, stock) VALUES
@@ -147,7 +173,7 @@ INSERT INTO books (title, author_id, price, publication_date, category, stock) V
 ('Java完全ガイド', 3, 3200, '2023-08-05', '技術書', 20);
 ```
 
-\</details>
+</details>
 
 ### 3. 基本的なデータ検索
 
@@ -157,14 +183,21 @@ INSERT INTO books (title, author_id, price, publication_date, category, stock) V
 
 1. すべての著者の名前と生年月日を取得
 2. すべての書籍のタイトルと価格を取得
-3. 在庫が20以上の書籍のみを取得
+3. 在庫が 20以上の書籍のみを取得
 
-**ヒント**:
+<details>
+
+<summary>ヒント</summary>
 
 * 特定の列のみを取得するには、`SELECT` の後に列名をカンマ区切りで指定します
-* 条件で絞り込むには `WHERE` 句を使います
 
-\<details> \<summary>解答例\</summary>
+- 条件で絞り込むには `WHERE` 句を使います
+
+</details>
+
+<details>
+
+<summary>解答例</summary>
 
 ```sql
 -- 1. すべての著者の名前と生年月日
@@ -177,21 +210,27 @@ SELECT title, price FROM books;
 SELECT * FROM books WHERE stock >= 20;
 ```
 
-\</details>
+</details>
 
 #### 問題 3-2: 条件検索
 
 以下の条件に一致するデータを検索するクエリを作成してください。
 
-1. 価格が2000円以上の書籍
+1. 価格が 2000円以上の書籍
 2. 小説カテゴリの書籍
 3. 2023年以降に出版された書籍
 
-**ヒント**:
+<details>
 
-* 日付の一部（年など）を比較するには、`YEAR()` 関数を使うことができます
+<summary>ヒント</summary>
 
-\<details> \<summary>解答例\</summary>
+日付の一部（年など）を比較するには、`YEAR()` 関数を使うことができます
+
+</details>
+
+<details>
+
+<summary>解答例</summary>
 
 ```sql
 -- 1. 価格が2000円以上の書籍
@@ -206,22 +245,29 @@ SELECT * FROM books WHERE publication_date >= '2023-01-01';
 SELECT * FROM books WHERE YEAR(publication_date) >= 2023;
 ```
 
-\</details>
+</details>
 
 #### 問題 3-3: 複合条件検索
 
 以下の複合条件に一致するデータを検索するクエリを作成してください。
 
-1. 小説カテゴリで、かつ価格が1500円以上の書籍
-2. 技術書カテゴリ、または在庫が30以上の書籍
-3. 2023年に出版された書籍（2023年1月1日～2023年12月31日）
+1. 小説カテゴリで、かつ価格が 1500円以上の書籍
+2. 技術書カテゴリ、または在庫が 30 以上の書籍
+3. 2023年に出版された書籍 (2023年1月1日～2023年12月31日)
 
-**ヒント**:
+<details>
+
+<summary>ヒント</summary>
 
 * 複数の条件を組み合わせるには、`AND` や `OR` 演算子を使います
-* 範囲指定には `BETWEEN` 演算子も使えます
 
-\<details> \<summary>解答例\</summary>
+- 範囲指定には `BETWEEN` 演算子も使えます
+
+</details>
+
+<details>
+
+<summary>解答例</summary>
 
 ```sql
 -- 1. 小説カテゴリで、価格が1500円以上の書籍
@@ -236,7 +282,7 @@ SELECT * FROM books WHERE publication_date BETWEEN '2023-01-01' AND '2023-12-31'
 SELECT * FROM books WHERE YEAR(publication_date) = 2023;
 ```
 
-\</details>
+</details>
 
 ### 4. 結果の整形と制限
 
@@ -248,13 +294,21 @@ SELECT * FROM books WHERE YEAR(publication_date) = 2023;
 2. 書籍を出版日の新しい順に並べ替え
 3. 書籍をカテゴリ別、同じカテゴリ内では価格の高い順に並べ替え
 
-**ヒント**:
+<details>
+
+<summary>ヒント</summary>
 
 * 並べ替えには `ORDER BY` 句を使います
-* 複数の列で並べ替える場合はカンマで区切ります
+
+- 複数の列で並べ替える場合はカンマで区切ります
+
 * 降順に並べ替えるには `DESC` キーワードを使います
 
-\<details> \<summary>解答例\</summary>
+</details>
+
+<details>
+
+<summary>解答例</summary>
 
 ```sql
 -- 1. 価格の安い順
@@ -269,22 +323,28 @@ SELECT * FROM books ORDER BY publication_date DESC;
 SELECT * FROM books ORDER BY category, price DESC;
 ```
 
-\</details>
+</details>
 
 #### 問題 4-2: 結果の制限
 
 以下の制限を行うクエリを作成してください。
 
 1. 価格の高い上位3冊の書籍を取得
-2. 最も新しく出版された2冊の書籍を取得
-3. 4番目から6番目に価格の高い書籍を取得
+2. 最も新しく出版された 2冊の書籍を取得
+3. 4番目から 6番目に価格の高い書籍を取得
 
-**ヒント**:
+<details>
+
+<summary>ヒント</summary>
 
 * 結果の行数を制限するには `LIMIT` 句を使います
 * 指定した位置から始めるには `OFFSET` または `LIMIT 開始位置, 行数` を使います
 
-\<details> \<summary>解答例\</summary>
+</details>
+
+<details>
+
+<summary>解答例</summary>
 
 ```sql
 -- 1. 価格の高い上位3冊
@@ -299,20 +359,27 @@ SELECT * FROM books ORDER BY price DESC LIMIT 3 OFFSET 3;
 SELECT * FROM books ORDER BY price DESC LIMIT 3, 3;
 ```
 
-\</details>
+</details>
 
 ### 5. 著者と書籍の関連付け
 
 #### 問題 5-1: 著者情報を含む書籍一覧
 
-各書籍とその著者の情報（書籍タイトル、価格、著者名）を表示するクエリを作成してください。
+各書籍とその著者の情報 (書籍タイトル、価格、著者名) を表示するクエリを作成してください。
 
-**ヒント**:
+<details>
+
+<summary>ヒント</summary>
 
 * 著者情報を取得するには、`books` テーブルと `authors` テーブルを関連付ける必要があります
-* 複数のテーブルを結合するには、`FROM` 句に両方のテーブルを指定し、`WHERE` 句で関連付ける条件を指定します
 
-\<details> \<summary>解答例\</summary>
+- 複数のテーブルを結合するには、`FROM` 句に両方のテーブルを指定し、`WHERE` 句で関連付ける条件を指定します
+
+</details>
+
+<details>
+
+<summary>解答例</summary>
 
 ```sql
 SELECT
@@ -328,17 +395,23 @@ ORDER BY
     b.title;
 ```
 
-\</details>
+</details>
 
 #### 問題 5-2: 著者別の書籍一覧
 
-各著者が書いた書籍の一覧（著者名、書籍数、書籍タイトルのカンマ区切りリスト）を表示するクエリを作成してください。
+各著者が書いた書籍の一覧 (著者名、書籍数、書籍タイトルのカンマ区切りリスト) を表示するクエリを作成してください。
 
-**ヒント**:
+<details>
 
-* これは少し高度な問題です。`GROUP_CONCAT` 関数を使用して、グループ化したデータを連結できます
+<summary>ヒント</summary>
 
-\<details> \<summary>解答例\</summary>
+これは高度な問題です。`GROUP_CONCAT` 関数を使用して、グループ化したデータを連結できます
+
+</details>
+
+<details>
+
+<summary>解答例</summary>
 
 ```sql
 SELECT
@@ -355,16 +428,4 @@ ORDER BY
     書籍数 DESC;
 ```
 
-\</details>
-
-### まとめ
-
-この実践問題を通じて、以下のスキルを身につけることができました：
-
-* データベースとテーブルの作成
-* データの追加
-* 基本的な検索と条件の指定
-* 結果の並べ替えと制限
-* 複数テーブルの関連付け
-
-これらは実際のデータベース操作で頻繁に使用される基本的な操作です。次の実践問題では、より高度なデータ集計やグループ化について学びましょう。
+</details>
