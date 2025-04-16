@@ -18,7 +18,7 @@ description: >-
 
 > 📝 **ポイント**: データベース名は、単語の区切りにアンダースコア ( \_ ) を使うことが多いです。すべて小文字で統一するのが一般的です。
 
-#### 3.1.2 データベースの作成
+#### データベースの作成
 
 新しいデータベースを作成するには、`CREATE DATABASE` コマンドを使います。
 
@@ -32,7 +32,7 @@ CREATE DATABASE online_shop;
 <summary>実行結果</summary>
 
 ```
-Query OK, 1 row affected (0.02 sec)
+OK, 1 row affected in 22.679ms
 ```
 
 </details>
@@ -44,7 +44,7 @@ Query OK, 1 row affected (0.02 sec)
 CREATE DATABASE IF NOT EXISTS online_shop;
 ```
 
-#### 3.1.3 データベースの一覧表示
+#### データベースの一覧表示
 
 サーバー上のデータベース一覧を表示するには、
 
@@ -66,14 +66,14 @@ SHOW DATABASES;
 | performance_schema |
 | sys                |
 +--------------------+
-5 rows in set (0.00 sec)
+OK, 7 records retrieved in 1.299ms
 ```
 
 </details>
 
 > 📝 **ポイント**: `information_schema`, `mysql`, `performance_schema`, `sys` はMySQLのシステムデータベースです。通常、これらは直接操作しません。
 
-#### 3.1.4 データベースの選択
+#### データベースの選択
 
 作成したデータベースを使用するには、`USE` コマンドで選択します。
 
@@ -87,7 +87,7 @@ USE online_shop;
 <summary>実行結果</summary>
 
 ```
-Database changed
+OK, 0 records retrieved in 0.732ms
 ```
 
 </details>
@@ -108,18 +108,18 @@ SELECT DATABASE();
 +-------------+
 | online_shop |
 +-------------+
-1 row in set (0.00 sec)
+OK, 1 record retrieved in 0.621ms
 ```
 
 </details>
 
-> 📝 **ポイント**: 作業を始める前に必ず「どのデータベースを使っているか」を確認する習慣をつけましょう。
+> 📝 **ポイント**: 作業を始める前に必ず 「どのデータベースを使っているか」 を確認する習慣をつけましょう。
 
 ### 3.2 テーブルの作成
 
 データベースを作成したら、次はその中にテーブルを作成します。これがデータを格納する実際の「表」になります。
 
-#### 3.2.1 基本的なデータ型
+#### 基本的なデータ型
 
 テーブル作成時に使用する主な基本データ型は以下の通りです。
 
@@ -132,7 +132,7 @@ SELECT DATABASE();
 
 > 📝 **ポイント**: 実際にはもっと多くのデータ型がありますが、初めは上記の基本的なものだけで十分です。
 
-#### 3.2.2 シンプルなテーブルの作成
+#### シンプルなテーブルの作成
 
 テーブルを作成するには、`CREATE TABLE` コマンドを使います。基本的な構文は以下の通りです。
 
@@ -159,7 +159,7 @@ CREATE TABLE categories (
 <summary>実行結果</summary>
 
 ```
-Query OK, 0 rows affected (0.03 sec)
+OK, 0 records retrieved in 41.247ms
 ```
 
 </details>
@@ -167,7 +167,7 @@ Query OK, 0 rows affected (0.03 sec)
 次に、商品テーブルを作成します。
 
 ```sql
--- 商品テーブルを作成
+-- 商品テーブルを作成_
 CREATE TABLE products (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -183,26 +183,20 @@ CREATE TABLE products (
 <summary>実行結果</summary>
 
 ```
-Query OK, 0 rows affected (0.04 sec)
+OK, 0 records retrieved in 52.562ms
 ```
 
 </details>
 
-> 📝 **ポイント**: 上記の例では、`products`テーブルの`category_id`列が`categories`テーブルの`id`列を参照しています。これを「外部キー」と呼び、テーブル同士の関連を表します。
+> 📝 **ポイント**: 上記の例では、`products` テーブルの `category_id` 列が `categories` テーブルの`id` 列を参照しています。これを 「外部キー」 と呼び、テーブル同士の関連を表します。
 
-#### 3.2.3 主な制約
+#### 主な制約
 
 テーブル作成時には以下の基本的な制約が使えます。
 
-| 制約              | 説明              | 例                                                     |
-| --------------- | --------------- | ----------------------------------------------------- |
-| PRIMARY KEY     | 主キー（一意の識別子）     | `id INT PRIMARY KEY`                                  |
-| FOREIGN KEY     | 外部キー（他のテーブルを参照） | `FOREIGN KEY (category_id) REFERENCES categories(id)` |
-| NOT NULL        | NULL値を許可しない     | `name VARCHAR(100) NOT NULL`                          |
-| DEFAULT         | デフォルト値を設定       | `stock INT DEFAULT 0`                                 |
-| AUTO\_INCREMENT | 自動的に増加する値       | `id INT AUTO_INCREMENT`                               |
+<table><thead><tr><th width="181.5999755859375">制約</th><th>説明</th><th>例</th></tr></thead><tbody><tr><td>PRIMARY KEY</td><td>主キー (一意の識別子)</td><td><code>id INT PRIMARY KEY</code></td></tr><tr><td>FOREIGN KEY</td><td>外部キー (他のテーブルを参照)</td><td><code>FOREIGN KEY (category_id) REFERENCES categories(id)</code></td></tr><tr><td>NOT NULL</td><td>NULL値を許可しない</td><td><code>name VARCHAR(100) NOT NULL</code></td></tr><tr><td>DEFAULT</td><td>デフォルト値を設定</td><td><code>stock INT DEFAULT 0</code></td></tr><tr><td>AUTO_INCREMENT</td><td>自動的に増加する値</td><td><code>id INT AUTO_INCREMENT</code></td></tr></tbody></table>
 
-#### 3.2.4 テーブル一覧と構造の確認
+#### テーブル一覧と構造の確認
 
 データベース内のテーブル一覧を表示するには、
 
@@ -221,7 +215,7 @@ SHOW TABLES;
 | categories           |
 | products             |
 +----------------------+
-2 rows in set (0.00 sec)
+OK, 2 records retrieved in 1.647ms
 ```
 
 </details>
@@ -248,7 +242,7 @@ DESC products;
 | stock       | int          | YES  |     | 0       |                |
 | category_id | int          | YES  | MUL | NULL    |                |
 +-------------+--------------+------+-----+---------+----------------+
-5 rows in set (0.01 sec)
+OK, 5 records retrieved in 3.565ms
 ```
 
 </details>
@@ -257,14 +251,14 @@ DESC products;
 
 テーブルを作成したら、次はデータを追加します。データを追加するには`INSERT INTO`コマンドを使用します。
 
-#### 3.3.1 INSERT文の基本構文
+#### INSERT 文の基本構文
 
 ```sql
 INSERT INTO テーブル名 (カラム1, カラム2, ...)
 VALUES (値1, 値2, ...);
 ```
 
-#### 3.3.2 単一レコードの挿入
+#### 単一レコードの挿入
 
 まずはカテゴリテーブルにデータを入れてみましょう。
 
@@ -279,7 +273,7 @@ VALUES ('電子機器');
 <summary>実行結果</summary>
 
 ```
-Query OK, 1 row affected (0.01 sec)
+OK, 1 row affected in 9.489ms
 ```
 
 </details>
@@ -296,7 +290,7 @@ VALUES ('家具');
 <summary>実行結果</summary>
 
 ```
-Query OK, 1 row affected (0.01 sec)
+OK, 1 row affected in 10.239ms
 ```
 
 </details>
@@ -316,12 +310,12 @@ VALUES ('スマートフォン', 89000, 25, 1);
 <summary>実行結果</summary>
 
 ```
-Query OK, 1 row affected (0.01 sec)
+OK, 1 row affected in 16.993ms
 ```
 
 </details>
 
-#### 3.3.3 複数レコードの一括挿入
+#### 複数レコードの一括挿入
 
 複数のレコードを一度に挿入することもできます。
 
@@ -329,9 +323,9 @@ Query OK, 1 row affected (0.01 sec)
 -- 複数の商品を一括挿入
 INSERT INTO products (name, price, stock, category_id)
 VALUES 
-('ノートパソコン', 120000, 15, 1),
-('木製テーブル', 35000, 5, 2),
-('オフィスチェア', 12000, 20, 2);
+    ('ノートパソコン', 120000, 15, 1),
+    ('木製テーブル', 35000, 5, 2),
+    ('オフィスチェア', 12000, 20, 2);
 ```
 
 <details>
@@ -339,13 +333,12 @@ VALUES
 <summary>実行結果</summary>
 
 ```
-Query OK, 3 rows affected (0.01 sec)
-Records: 3  Duplicates: 0  Warnings: 0
+OK, 3 rows affected in 13.01ms
 ```
 
 </details>
 
-#### 3.3.4 挿入したデータの確認
+#### 挿入したデータの確認
 
 データを挿入したら、正しく追加されたか確認しましょう。
 
@@ -362,10 +355,10 @@ SELECT * FROM categories;
 +----+----------+
 | id | name     |
 +----+----------+
-|  1 | 電子機器 |
+|  1 | 電子機器  |
 |  2 | 家具     |
 +----+----------+
-2 rows in set (0.00 sec)
+OK, 2 records retrieved in 0.799ms
 ```
 
 </details>
@@ -383,12 +376,12 @@ SELECT * FROM products;
 +----+--------------------+--------+-------+-------------+
 | id | name               | price  | stock | category_id |
 +----+--------------------+--------+-------+-------------+
-|  1 | スマートフォン     |  89000 |    25 |           1 |
-|  2 | ノートパソコン     | 120000 |    15 |           1 |
-|  3 | 木製テーブル       |  35000 |     5 |           2 |
-|  4 | オフィスチェア     |  12000 |    20 |           2 |
+|  1 | スマートフォン       |  89000 |    25 |           1 |
+|  2 | ノートパソコン       | 120000 |    15 |           1 |
+|  3 | 木製テーブル         |  35000 |     5 |           2 |
+|  4 | オフィスチェア       |  12000 |    20 |           2 |
 +----+--------------------+--------+-------+-------------+
-4 rows in set (0.00 sec)
+OK, 4 records retrieved in 0.747ms
 ```
 
 </details>
@@ -397,13 +390,13 @@ SELECT * FROM products;
 
 実際のテーブル設計では、情報を適切に整理することが重要です。
 
-#### 3.4.1 テーブルの分割
+#### テーブルの分割
 
 情報を適切に分割することで、データの管理が容易になります。例えば、以下のような 「 1つの表に全部入れた場合」 は問題があります。
 
 **注文情報 (全部一つのテーブル)**
 
-<table><thead><tr><th width="76">注文ID</th><th>顧客名</th><th width="118.800048828125">顧客住所</th><th width="198.7999267578125">商品名</th><th>商品価格</th><th>数量</th></tr></thead><tbody><tr><td>1</td><td>山田太郎</td><td>東京都...</td><td>スマートフォン</td><td>89000</td><td>1</td></tr><tr><td>2</td><td>山田太郎</td><td>東京都...</td><td>ノートパソコン</td><td>120000</td><td>1</td></tr><tr><td>3</td><td>佐藤花子</td><td>大阪府...</td><td>スマートフォン</td><td>89000</td><td>2</td></tr></tbody></table>
+<table><thead><tr><th width="75.60000610351562">注文ID</th><th width="97.5999755859375">顧客名</th><th width="86.800048828125">顧客住所</th><th width="143.9998779296875">商品名</th><th width="96.4000244140625">商品価格</th><th width="69.99993896484375">数量</th></tr></thead><tbody><tr><td>1</td><td>山田太郎</td><td>東京都...</td><td>スマートフォン</td><td>89000</td><td>1</td></tr><tr><td>2</td><td>山田太郎</td><td>東京都...</td><td>ノートパソコン</td><td>120000</td><td>1</td></tr><tr><td>3</td><td>佐藤花子</td><td>大阪府...</td><td>スマートフォン</td><td>89000</td><td>2</td></tr></tbody></table>
 
 これを複数のテーブルに分割することで、データの重複を減らし、管理が容易になります。
 
@@ -417,19 +410,15 @@ SELECT * FROM products;
 
 **注文テーブル**
 
-| 注文ID | 顧客ID | 商品ID | 数量 | 注文日        |
-| ---- | ---- | ---- | -- | ---------- |
-| 1    | 1    | 1    | 1  | 2023-01-15 |
-| 2    | 1    | 2    | 1  | 2023-01-20 |
-| 3    | 2    | 1    | 2  | 2023-01-25 |
+<table><thead><tr><th width="90">注文ID</th><th width="90.4000244140625">顧客ID</th><th width="91.60003662109375">商品ID</th><th>数量</th><th>注文日</th></tr></thead><tbody><tr><td>1</td><td>1</td><td>1</td><td>1</td><td>2023-01-15</td></tr><tr><td>2</td><td>1</td><td>2</td><td>1</td><td>2023-01-20</td></tr><tr><td>3</td><td>2</td><td>1</td><td>2</td><td>2023-01-25</td></tr></tbody></table>
 
 > 📝 **ポイント**: このようにテーブルを分割することで、データの重複が減り、更新や管理が容易になります。また、外部キーを使ってテーブル間の関連性を保つことができます。
 
-#### 3.4.2 テーブル設計の練習
+#### テーブル設計の練習
 
 実際のアプリケーション開発では、設計段階でテーブル構造を考えることが重要です。例えば、簡単なブログシステムのテーブル設計を考えてみましょう。
 
-**authorsテーブル (著者情報)**
+**authors テーブル (著者情報)**
 
 ```sql
 CREATE TABLE authors (
@@ -439,7 +428,7 @@ CREATE TABLE authors (
 );
 ```
 
-**articlesテーブル (記事情報)**
+**articles テーブル (記事情報)**
 
 ```sql
 CREATE TABLE articles (
@@ -452,7 +441,7 @@ CREATE TABLE articles (
 );
 ```
 
-**commentsテーブル (コメント情報)**
+**comments テーブル (コメント情報)**
 
 ```sql
 CREATE TABLE comments (

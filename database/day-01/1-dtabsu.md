@@ -96,11 +96,7 @@ description: この章では、データベースの基本概念と MySQL につ
 
 #### データベース
 
-**データベース** は、関連するテーブルや情報をまとめて管理する場所です。例えば、学校の情報を管理する場合、生徒の名簿、授業の時間割、成績表などをすべて 1つの場所で管理できます。
-
-**データベースの命名例：**
-
-<table><thead><tr><th width="248.4000244140625">システム種類</th><th>データベース名の例</th></tr></thead><tbody><tr><td><strong>オンラインショップシステム</strong></td><td><code>online_shop</code>, <code>ecommerce_db</code>, <code>web_store</code></td></tr><tr><td><strong>学校管理システム</strong></td><td><code>school_management</code>, <code>education_db</code>, <code>campus_system</code></td></tr><tr><td><strong>図書館管理システム</strong></td><td><code>library_management</code>, <code>books_db</code>, <code>reading_center</code></td></tr></tbody></table>
+データベースは、関連するテーブルや情報をまとめて管理する場所です。例えば、学校の情報を管理する場合、生徒の名簿、授業の時間割、成績表などをすべて 1つの場所で管理できます。
 
 #### テーブル (表)
 
@@ -122,7 +118,7 @@ description: この章では、データベースの基本概念と MySQL につ
 
 各レコードを一意に識別するためのカラムです。上の表では 「商品ID」 がプライマリーキーです。プライマリーキーには重複する値が存在できません。
 
-#### フォーリンキー ( 外部キー)
+#### フォーリンキー (外部キー)
 
 他のテーブルのプライマリーキーを参照するカラムです。上の表の 「カテゴリID」 は 「カテゴリテーブル」 のプライマリーキーを参照しています。
 
