@@ -7,15 +7,15 @@
 * [Day 01](database/day-01/README.md)
   * [1. データベース入門](database/day-01/1-dtabsu.md)
   * [2. データベース環境構築と接続](database/day-01/2-dtabsuto.md)
-  * [3. テーブル作成とデータ操作](database/day-01/3-tburutodta.md)
-  * [4. 基本的なデータ検索](database/day-01/4-nadta.md)
+  * [3. テーブル作成とデータ操作](database/day-01/03-table-and-data-manipulation.md)
+  * [4. 基本的なデータ検索](database/day-01/04-data-retrieval.md)
   * [実践問題 ①](database/day-01/shi-jian-wen-ti.md)
 
 ***
 
 * [Day 02](day-02/README.md)
-  * [5. 検索結果の整形](day-02/5-no.md)
-  * [6. データの集計](day-02/6-dtano.md)
+  * [5. 検索結果の整形](day-02/05-formatting-query-results.md)
+  * [6. データの集計](day-02/06-data-aggregation.md)
   * [実践問題 ②](day-02/shi-jian-wen-ti.md)
 * [SQLチートシート](sqlchtoshto.md)
 * [よくあるエラーと対処法](yokuaruerto.md)

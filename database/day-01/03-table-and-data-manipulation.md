@@ -167,13 +167,14 @@ OK, 0 records retrieved in 41.247ms
 次に、商品テーブルを作成します。
 
 ```sql
--- 商品テーブルを作成_
+-- 商品テーブルを作成
 CREATE TABLE products (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     price INT NOT NULL,
     stock INT DEFAULT 0,
     category_id INT,
+    description TEXT,
     FOREIGN KEY (category_id) REFERENCES categories(id)
 );
 ```
@@ -300,7 +301,7 @@ OK, 1 row affected in 10.239ms
 次に商品テーブルにデータを追加します。
 
 ```sql
--- 商品を追加（category_idは既に存在するカテゴリのIDを指定）
+-- 商品を追加 (category_idは既に存在するカテゴリのIDを指定)
 INSERT INTO products (name, price, stock, category_id)
 VALUES ('スマートフォン', 89000, 25, 1);
 ```
@@ -326,6 +327,7 @@ VALUES
     ('ノートパソコン', 120000, 15, 1),
     ('木製テーブル', 35000, 5, 2),
     ('オフィスチェア', 12000, 20, 2);
+
 ```
 
 <details>

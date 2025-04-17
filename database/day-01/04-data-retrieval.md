@@ -36,13 +36,13 @@ SELECT * FROM categories;
 <summary>実行結果</summary>
 
 ```
-+----+----------+------------------------+
-| id | name     | description            |
-+----+----------+------------------------+
-|  1 | 電子機器 | 電子機器とガジェット  |
-|  2 | 家具     | テーブル、椅子など    |
-|  3 | 書籍     | 書籍、電子書籍、雑誌  |
-+----+----------+------------------------+
++----+----------+--------------------+
+| id | name     | description        |
++----+----------+--------------------+
+|  1 | 電子機器  | 電子機器とガジェット  |
+|  2 | 家具     | テーブル、椅子など     |
+|  3 | 書籍     | 書籍、電子書籍、雑誌   |
++----+----------+--------------------+
 3 rows in set (0.00 sec)
 ```
 
@@ -67,9 +67,9 @@ SELECT name, price FROM products;
 +----------------------+----------+
 | name                 | price    |
 +----------------------+----------+
-| スマートフォン       | 89000.00 |
-| ラップトップPC       |120000.00 |
-| コーヒーメーカー     | 15000.00 |
+| スマートフォン          | 89000.00 |
+| ラップトップPC         |120000.00 |
+| コーヒーメーカー        | 15000.00 |
 +----------------------+----------+
 3 rows in set (0.00 sec)
 ```
@@ -86,16 +86,9 @@ SELECT name, price FROM products;
 
 WHERE 句では以下の比較演算子が使用できます。
 
-| 演算子         | 説明    |
-| ----------- | ----- |
-| `=`         | 等しい   |
-| `<>`または`!=` | 等しくない |
-| `<`         | より小さい |
-| `<=`        | 以下    |
-| `>`         | より大きい |
-| `>=`        | 以上    |
+<table><thead><tr><th width="180.89483642578125">演算子</th><th>説明</th></tr></thead><tbody><tr><td><code>=</code></td><td>等しい</td></tr><tr><td><code>&#x3C;></code> または <code>!=</code></td><td>等しくない</td></tr><tr><td><code>&#x3C;</code></td><td>より小さい</td></tr><tr><td><code>&#x3C;=</code></td><td>以下</td></tr><tr><td><code>></code></td><td>より大きい</td></tr><tr><td><code>>=</code></td><td>以上</td></tr></tbody></table>
 
-> 📝 **ポイント**: SQL では等価比較に `=` を使います。これは多くのプログラミング言語で使われる `==` と異なるので、混乱しやすいポイントです。`==`は SQL では使えません。
+> 📝 **ポイント**: SQL では等価比較に `=` を使います。これは多くのプログラミング言語で使われる `==` と異なるので、混乱しやすいポイントです。`==` は SQL では使えません。
 
 例：
 
@@ -114,9 +107,9 @@ WHERE price >= 10000;
 +----------------------+----------+
 | name                 | price    |
 +----------------------+----------+
-| スマートフォン       | 89000.00 |
-| ラップトップPC       |120000.00 |
-| コーヒーメーカー     | 15000.00 |
+| スマートフォン          | 89000.00 |
+| ラップトップPC         |120000.00 |
+| コーヒーメーカー        | 15000.00 |
 +----------------------+----------+
 3 rows in set (0.00 sec)
 ```
@@ -304,7 +297,9 @@ WHERE category_id IN (1, 3);
 
 ```sql
 -- 名前に「フォン」を含む商品
-SELECT name FROM products WHERE name LIKE '%フォン%';
+SELECT name 
+FROM products 
+WHERE name LIKE '%フォン%';
 ```
 
 <details>
@@ -324,7 +319,9 @@ SELECT name FROM products WHERE name LIKE '%フォン%';
 
 ```sql
 -- 名前が「マ」で始まる商品
-SELECT name FROM products WHERE name LIKE 'マ%';
+SELECT name 
+FROM products 
+WHERE name LIKE 'マ%';
 ```
 
 <details>
@@ -350,7 +347,9 @@ NULL値 (値が存在しない) を持つレコードを検索します。
 
 ```sql
 -- 説明 (description) が NULL の商品
-SELECT name FROM products WHERE description IS NULL;
+SELECT name 
+FROM products 
+WHERE description IS NULL;
 ```
 
 <details>
@@ -371,7 +370,9 @@ SELECT name FROM products WHERE description IS NULL;
 
 ```sql
 -- 説明 (description) が NULL でない商品
-SELECT name FROM products WHERE description IS NOT NULL;
+SELECT name 
+FROM products 
+WHERE description IS NOT NULL;
 ```
 
 <details>
