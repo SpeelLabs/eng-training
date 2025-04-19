@@ -23,6 +23,10 @@
   * [1. プログラミングとアルゴリズム](algorithm/day-01/01-intro-to-algorithm.md)
   * [2. Google Colab 入門](algorithm/day-01/02-intro-to-google-colab.md)
   * [3. Python: 変数とデータ型](algorithm/day-01/03-variable.md)
+  * [4. Python: 基本演算子](algorithm/day-01/04-operator.md)
+  * [5. Python: 関数の基本](algorithm/day-01/05-function.md)
+  * [6. Python: 条件分岐](algorithm/day-01/06-conditional.md)
+* [Day 02](algorithm/day-02.md)
 
 ## Getting Started
 
