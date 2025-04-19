@@ -20,6 +20,11 @@
 * [SQLチートシート](sqlchtoshto.md)
 * [よくあるエラーと対処法](yokuaruerto.md)
 
+## Algorithm
+
+* [Day 01](algorithm/day-01/README.md)
+  * [1. プログラミングとアルゴリズム](algorithm/day-01/1-puroguramingutoarugorizumu.md)
+
 ## Getting Started
 
 * [Quickstart](getting-started/quickstart.md)
