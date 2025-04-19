@@ -20,7 +20,9 @@
 ## Algorithm
 
 * [Day 01](algorithm/day-01/README.md)
-  * [1. プログラミングとアルゴリズム](algorithm/day-01/1-puroguramingutoarugorizumu.md)
+  * [1. プログラミングとアルゴリズム](algorithm/day-01/01-intro-to-algorithm.md)
+  * [2. Google Colab 入門](algorithm/day-01/02-intro-to-google-colab.md)
+  * [3. Python: 変数とデータ型](algorithm/day-01/03-variable.md)
 
 ## Getting Started
 
