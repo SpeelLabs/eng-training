@@ -26,6 +26,7 @@
   * [4. Python: 基本演算子](algorithm/day-01/04-operator.md)
   * [5. Python: 関数の基本](algorithm/day-01/05-function.md)
   * [6. Python: 条件分岐](algorithm/day-01/06-conditional.md)
+  * [実践問題 ①](algorithm/day-01/algorithm-exercises-01.md)
 * [Day 02](algorithm/day-02.md)
 
 ## Getting Started
