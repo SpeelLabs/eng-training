@@ -41,12 +41,10 @@ winget --version
 
 <summary>実行結果</summary>
 
-{% code overflow="wrap" %}
 ```
 PS C:\Users\Username> winget --version
 v1.10.340    # バージョンは異なる場合があります
 ```
-{% endcode %}
 
 </details>
 
@@ -109,7 +107,9 @@ winget install --id Microsoft.Powershell --source winget
 ```
 {% endcode %}
 
-> ⚠️ **注意**: 初めて winget を使用する場合、「Terms of Transaction: https://aka.ms/microsoft-store-terms-of-transaction」 という Microsoft Store の利用規約への同意を求められることがあります。インストールを続行するには、`Y` キーを押して同意する必要があります。
+{% hint style="warning" %}
+初めて winget を使用する場合、[Microsoft Store の利用規約 (Terms of Transaction) ](https://aka.ms/microsoft-store-terms-of-transaction)への同意を求められることがあります。インストールを続行するには、`Y` キーを押して同意する必要があります。
+{% endhint %}
 
 #### 3.2 インストールの確認
 
@@ -157,7 +157,6 @@ $PSVersionTable
 
 <summary>実行結果</summary>
 
-{% code overflow="wrap" %}
 ```
 Name                           Value
 ----                           -----
@@ -171,7 +170,6 @@ PSRemotingProtocolVersion      2.3
 SerializationVersion           1.1.0.1
 WSManStackVersion              3.0
 ```
-{% endcode %}
 
 </details>
 
@@ -220,12 +218,10 @@ git --version
 
 <summary>実行結果</summary>
 
-{% code overflow="wrap" %}
 ```
 PS C:\Users\Username> git --version
 git version 2.49.0.windows.1
 ```
-{% endcode %}
 
 </details>
 
