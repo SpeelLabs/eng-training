@@ -15,12 +15,12 @@ description: Windows 環境に Git と PowerShell 7 をインストールし、V
 * **PowerShell 7**: 最新のコマンドラインシェル
 * **Visual Studio Code**: コードエディター (既にインストール済み)
 
-#### 1.2 公式ドキュメント
+#### 1.2 ドキュメント
 
 この手順は以下の公式ドキュメントに基づいています。
 
-* [PowerShell のインストール - Microsoft Learn](https://learn.microsoft.com/ja-jp/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.5)
 * [Git for Windows - ダウンロード](https://git-scm.com/download/win) - 現在の安定版は **2.49.0** (2025年4月現在)
+* [PowerShell のインストール - Microsoft Learn](https://learn.microsoft.com/ja-jp/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.5)
 
 #### 1.3 事前確認
 
