@@ -17,7 +17,7 @@ description: Windows 11 環境に Git をインストールし、PowerShell 7 �
 
 #### 1.2 公式ドキュメント
 
-この手順は以下の公式ドキュメントに基づいています：
+この手順は以下の公式ドキュメントに基づいています。
 
 * [PowerShell のインストール - Microsoft Learn](https://learn.microsoft.com/ja-jp/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.5)
 * [Git for Windows - ダウンロード](https://git-scm.com/download/win) - 現在の安定版は **2.49.0** (2025年4月現在)
@@ -26,8 +26,8 @@ description: Windows 11 環境に Git をインストールし、PowerShell 7 �
 
 インストールを始める前に、winget が利用可能かどうかを確認しましょう。
 
-1. <kbd>Windows</kbd> キーを押し、検索ボックスに 「**PowerShell**」 と入力します
-2. 検索結果に表示された 「**PowerShell**」 を右クリックし、「**管理者として実行**」 を選択します
+1. <kbd>Windows</kbd> キーを押し、検索ボックスに 「PowerShell」 と入力します
+2. 検索結果に表示された Windows PowerShell を右クリックし、<kbd>管理者として実行</kbd> を選択します
 3. 表示された PowerShell で以下のコマンドを実行します。
 
 ```powershell
@@ -48,10 +48,6 @@ v1.10.340    # バージョンは異なる場合があります
 
 このコマンドが正常に実行され、バージョン情報が表示されれば winget は利用可能です。エラーが表示される場合は、App Installer をインストールする必要があるかもしれません。
 
-{% hint style="warning" %}
-Git のインストールには管理者権限が必要です。必ず管理者として実行した PowerShell でコマンドを実行してください。
-{% endhint %}
-
 ### 2. PowerShell 7 のインストール
 
 PowerShell 7 は、Windows のデフォルトの PowerShell より高機能で、クロスプラットフォーム対応の最新バージョンです。
@@ -69,9 +65,11 @@ winget install --id Microsoft.Powershell --source winget
 
 #### 2.2 インストールの確認
 
-インストール後、新しい PowerShell ウィンドウを開いて PowerShell 7 が正しくインストールされているか確認します。
+PowerShell 7 のインストールが完了したら、以下の手順で確認します。
 
-まず、通常の Windows PowerShell から PowerShell 7 を起動します。
+1. 管理者権限の PowerShell ウィンドウを閉じます
+2. <kbd>Windows</kbd> キーを押して 「PowerShell」 と検索し、**Windows PowerShell (PowerShell 5.1)** を開きます
+3. 開いた Windows PowerShell ウィンドウで PowerShell 7 を起動します
 
 ```powershell
 # PowerShell 7 を起動
@@ -96,7 +94,7 @@ Type 'help' to get help.
 
 </details>
 
-次に、バージョン情報を確認します。
+4. PowerShell 7 が起動したら、バージョン情報を確認します。
 
 ```powershell
 # バージョン情報の確認
@@ -131,7 +129,7 @@ Git はソースコードのバージョン管理システムです。コード�
 
 #### 3.1 winget でのインストール
 
-管理者権限の PowerShell で以下のコマンドを実行します。
+PowerShell 7 のインストールと同様に、**管理者権限の** **Windows PowerShell (PowerShell 5.1)**  で以下のコマンドを実行します。
 
 ```powershell
 # Git をインストール
@@ -139,6 +137,10 @@ winget install --id Git.Git -e --source winget
 ```
 
 > 📝 **ポイント**: `-e` オプションは `--exact` の略で、パッケージ ID の完全一致検索を行います。`--source winget` は明示的にソースを指定します。これは Git の公式ドキュメントで推奨されている方法です。
+
+{% hint style="warning" %}
+Git のインストールには管理者権限が必要です。必ず管理者として実行した PowerShell でコマンドを実行してください。
+{% endhint %}
 
 #### 3.2 Git のバージョン確認
 
@@ -174,7 +176,7 @@ git version 2.49.0.windows.1
 
 #### 4.2 PowerShell のバージョン確認
 
-新しく開いたターミナルで以下のコマンドを実行して、PowerShell 7 が正しく動作していることを確認します：
+新しく開いたターミナルで以下のコマンドを実行して、PowerShell 7 が正しく動作していることを確認します。
 
 ```powershell
 $PSVersionTable.PSVersion
