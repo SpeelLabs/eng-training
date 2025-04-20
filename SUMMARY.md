@@ -2,6 +2,10 @@
 
 * [Welcome](README.md)
 
+## HTML & CSS
+
+* [Git のインストール](html-and-css/01-setup.md)
+
 ## データベース <a href="#database" id="database"></a>
 
 * [Day 01](database/day-01/README.md)
