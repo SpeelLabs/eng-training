@@ -1,8 +1,8 @@
 ---
-description: Windows 11 環境に Git をインストールし、PowerShell 7 と VS Code と連携させるための手順を説明します。
+description: Windows 環境に Git と PowerShell 7 をインストールし、VS Code と連携させるための手順を説明します。
 ---
 
-# Git のインストール
+# Git と PowerShell のインストール
 
 ### 1. 環境構築の準備
 
@@ -10,10 +10,10 @@ description: Windows 11 環境に Git をインストールし、PowerShell 7 �
 
 今回、以下のツールをインストールし、連携させます。
 
-* **PowerShell 7**: 最新のコマンドラインシェル
-* **Git**: バージョン管理システム
-* **Visual Studio Code**: コードエディター (既にインストール済み)
 * **winget**: Windows パッケージマネージャー (Windows 11 に標準搭載)
+* **Git**: バージョン管理システム
+* **PowerShell 7**: 最新のコマンドラインシェル
+* **Visual Studio Code**: コードエディター (既にインストール済み)
 
 #### 1.2 公式ドキュメント
 
@@ -27,54 +27,104 @@ description: Windows 11 環境に Git をインストールし、PowerShell 7 �
 インストールを始める前に、winget が利用可能かどうかを確認しましょう。
 
 1. <kbd>Windows</kbd> キーを押し、検索ボックスに 「PowerShell」 と入力します
-2. 検索結果に表示された Windows PowerShell を右クリックし、<kbd>管理者として実行</kbd> を選択します
-3. 表示された PowerShell で以下のコマンドを実行します。
+2. 検索結果に表示された **Windows PowerShell** を右クリックし、<kbd>管理者として実行</kbd> を選択します
+3. 表示された Windows PowerShell で以下のコマンドを実行します。
 
+{% code overflow="wrap" %}
 ```powershell
 # winget が利用可能か確認
 winget --version
 ```
+{% endcode %}
+
+<details>
+
+<summary>実行結果</summary>
+
+{% code overflow="wrap" %}
+```
+PS C:\Users\Username> winget --version
+v1.10.340    # バージョンは異なる場合があります
+```
+{% endcode %}
+
+</details>
+
+このコマンドが正常に実行され、バージョン情報が表示されれば winget は利用可能です。エラーが表示される場合は、App Installer をインストールする必要があるかもしれません。
+
+### 2. Git のインストール
+
+**Git** はソースコードのバージョン管理システムです。コードの変更履歴を追跡し、チームでの共同作業を可能にします。
+
+#### 2.1 winget でのインストール
+
+**管理者権限の** **Windows PowerShell** で以下のコマンドを実行します。
+
+{% code overflow="wrap" %}
+```powershell
+# Git をインストール
+winget install --id Git.Git -e --source winget
+```
+{% endcode %}
+
+> 📝 **ポイント**: `-e` オプションは `--exact` の略で、パッケージ ID の完全一致検索を行います。`--source winget` は明示的にソースを指定します。これは Git の公式ドキュメントで推奨されている方法です。
+
+{% hint style="warning" %}
+Git のインストールには管理者権限が必要です。必ず管理者として実行した PowerShell でコマンドを実行してください。
+{% endhint %}
+
+#### 2.2 Git のバージョン確認
+
+Git が正しくインストールされたかを確認します。
+
+{% code overflow="wrap" %}
+```powershell
+git --version
+```
+{% endcode %}
 
 <details>
 
 <summary>実行結果</summary>
 
 ```
-PS C:\Users\Username> winget --version
-v1.10.340    # バージョンは異なる場合があります
+PS C:\Users\Username> git --version
+git version 2.49.0.windows.1
 ```
 
 </details>
 
-このコマンドが正常に実行され、バージョン情報が表示されれば winget は利用可能です。エラーが表示される場合は、App Installer をインストールする必要があるかもしれません。
+### 3. PowerShell 7 のインストール
 
-### 2. PowerShell 7 のインストール
+**PowerShell 7** は、デフォルトの Windows PowerShell (PowerShell 5.1) より高機能で、クロスプラットフォーム対応の最新バージョンです。
 
-PowerShell 7 は、Windows のデフォルトの PowerShell より高機能で、クロスプラットフォーム対応の最新バージョンです。
-
-#### 2.1 winget でのインストール
+#### 3.1 winget でのインストール
 
 先ほど開いた管理者権限の PowerShell で以下のコマンドを実行します。
 
+{% code overflow="wrap" %}
 ```powershell
 # PowerShell 7 をインストール
 winget install --id Microsoft.Powershell --source winget
 ```
+{% endcode %}
 
 > ⚠️ **注意**: 初めて winget を使用する場合、「Terms of Transaction: https://aka.ms/microsoft-store-terms-of-transaction」 という Microsoft Store の利用規約への同意を求められることがあります。インストールを続行するには、`Y` キーを押して同意する必要があります。
 
-#### 2.2 インストールの確認
+#### 3.2 インストールの確認
 
 PowerShell 7 のインストールが完了したら、以下の手順で確認します。
 
 1. 管理者権限の PowerShell ウィンドウを閉じます
-2. <kbd>Windows</kbd> キーを押して 「PowerShell」 と検索し、**Windows PowerShell (PowerShell 5.1)** を開きます
+2. 再度 <kbd>Windows</kbd> キーを押して 「PowerShell」 と検索し、**Windows PowerShell** を開き直します
 3. 開いた Windows PowerShell ウィンドウで PowerShell 7 を起動します
 
+{% code overflow="wrap" %}
 ```powershell
 # PowerShell 7 を起動
 pwsh
 ```
+{% endcode %}
 
 <details>
 
@@ -96,15 +146,18 @@ Type 'help' to get help.
 
 4. PowerShell 7 が起動したら、バージョン情報を確認します。
 
+{% code overflow="wrap" %}
 ```powershell
 # バージョン情報の確認
 $PSVersionTable
 ```
+{% endcode %}
 
 <details>
 
 <summary>実行結果</summary>
 
+{% code overflow="wrap" %}
 ```
 Name                           Value
 ----                           -----
@@ -118,48 +171,11 @@ PSRemotingProtocolVersion      2.3
 SerializationVersion           1.1.0.1
 WSManStackVersion              3.0
 ```
+{% endcode %}
 
 </details>
 
 > 📝 **ポイント**: `pwsh` は PowerShell 7 を起動するためのコマンドです。すでに PowerShell 7 を実行中の場合は、直接 `$PSVersionTable` コマンドでバージョン情報を確認できます。PSVersion の Major バージョンが 7 であれば PowerShell 7 を使用中です。
-
-### 3. Git のインストール
-
-Git はソースコードのバージョン管理システムです。コードの変更履歴を追跡し、チームでの共同作業を可能にします。
-
-#### 3.1 winget でのインストール
-
-PowerShell 7 のインストールと同様に、**管理者権限の** **Windows PowerShell (PowerShell 5.1)**  で以下のコマンドを実行します。
-
-```powershell
-# Git をインストール
-winget install --id Git.Git -e --source winget
-```
-
-> 📝 **ポイント**: `-e` オプションは `--exact` の略で、パッケージ ID の完全一致検索を行います。`--source winget` は明示的にソースを指定します。これは Git の公式ドキュメントで推奨されている方法です。
-
-{% hint style="warning" %}
-Git のインストールには管理者権限が必要です。必ず管理者として実行した PowerShell でコマンドを実行してください。
-{% endhint %}
-
-#### 3.2 Git のバージョン確認
-
-Git が正しくインストールされたか確認します。
-
-```powershell
-git --version
-```
-
-<details>
-
-<summary>実行結果</summary>
-
-```
-PS C:\Users\Username> git --version
-git version 2.49.0.windows.1
-```
-
-</details>
 
 ### 4. VS Code との連携
 
@@ -178,9 +194,11 @@ git version 2.49.0.windows.1
 
 新しく開いたターミナルで以下のコマンドを実行して、PowerShell 7 が正しく動作していることを確認します。
 
+{% code overflow="wrap" %}
 ```powershell
 $PSVersionTable.PSVersion
 ```
+{% endcode %}
 
 バージョン情報が表示され、メジャーバージョンが 7 であれば成功です。
 
@@ -192,18 +210,22 @@ VS Code の左側のアクティビティバーで、ソース管理アイコン
 
 VS Code のターミナルから Git コマンドが実行できることを確認します：
 
+{% code overflow="wrap" %}
 ```powershell
 git --version
 ```
+{% endcode %}
 
 <details>
 
 <summary>実行結果</summary>
 
+{% code overflow="wrap" %}
 ```
 PS C:\Users\Username> git --version
 git version 2.49.0.windows.1
 ```
+{% endcode %}
 
 </details>
 
@@ -211,9 +233,11 @@ git version 2.49.0.windows.1
 
 #### 5.1 PowerShell 7 コマンドが見つからない
 
+{% code overflow="wrap" %}
 ```
 'pwsh' は、内部コマンドまたは外部コマンド、操作可能なプログラムまたはバッチ ファイルとして認識されていません。
 ```
+{% endcode %}
 
 **対処法**:
 
@@ -223,9 +247,11 @@ git version 2.49.0.windows.1
 
 #### 5.2 Git コマンドが見つからない
 
+{% code overflow="wrap" %}
 ```
 'git' は、内部コマンドまたは外部コマンド、操作可能なプログラムまたはバッチ ファイルとして認識されていません。
 ```
+{% endcode %}
 
 **対処法**:
 
@@ -235,9 +261,11 @@ git version 2.49.0.windows.1
 
 #### 5.3 VS Code のターミナルエラー
 
+{% code overflow="wrap" %}
 ```
 Cannot launch terminal. A JavaScript error occurred in the main process.
 ```
+{% endcode %}
 
 **対処法**:
 
@@ -247,10 +275,12 @@ Cannot launch terminal. A JavaScript error occurred in the main process.
 
 #### 5.4 管理者権限が必要というエラー
 
+{% code overflow="wrap" %}
 ```
 このアプリケーションをインストールするには管理者権限が必要です。
 This application requires elevated permissions to install.
 ```
+{% endcode %}
 
 **対処法**:
 
