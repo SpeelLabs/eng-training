@@ -48,11 +48,11 @@ v1.10.340    # バージョンは異なる場合があります
 
 </details>
 
+このコマンドが正常に実行され、バージョン情報が表示されれば winget は利用可能です。エラーが表示される場合は、App Installer をインストールする必要があるかもしれません。
+
 {% hint style="warning" %}
 初めて winget を使用する場合、[Microsoft Store の利用規約 (Terms of Transaction) ](https://aka.ms/microsoft-store-terms-of-transaction)への同意を求められることがあります。続行するには、`Y` キーを押して同意する必要があります。
 {% endhint %}
-
-このコマンドが正常に実行され、バージョン情報が表示されれば winget は利用可能です。エラーが表示される場合は、App Installer をインストールする必要があるかもしれません。
 
 ### 2. Git のインストール
 
