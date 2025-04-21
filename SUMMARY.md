@@ -4,9 +4,11 @@
 
 ## HTML & CSS
 
+* [Day 01](html-and-css/day-01/README.md)
+  * [1. HTMLの基本構造と主要タグ](html-and-css/day-01/01-html-basics.md)
 * [Git と PowerShell のインストール](html-and-css/setup.md)
 
-## データベース <a href="#database" id="database"></a>
+## DATABASE
 
 * [Day 01](database/day-01/README.md)
   * [1. データベース入門](database/day-01/1-dtabsu.md)
