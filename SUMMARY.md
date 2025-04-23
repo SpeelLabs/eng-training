@@ -5,7 +5,13 @@
 ## HTML & CSS
 
 * [Day 01](html-and-css/day-01/README.md)
-  * [1. HTMLの基本構造と主要タグ](html-and-css/day-01/01-html-basics.md)
+  * [1. Web の仕組み](html-and-css/day-01/01-intro-to-web.md)
+  * [2. HTML の基本](html-and-css/day-01/02-html-basics.md)
+  * [3. CSS の基本](html-and-css/day-01/03-css-basics.md)
+  * [4. フレックスボックス](html-and-css/day-01/04-flexbox.md)
+  * [5. 画像の扱い方とメディア要素](html-and-css/day-01/05-media.md)
+* [Day02](html-and-css/day02/README.md)
+  * [6. フォーム要素の基本](html-and-css/day02/06-form.md)
 * [Git と PowerShell のインストール](html-and-css/setup.md)
 
 ## DATABASE
