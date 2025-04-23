@@ -215,54 +215,62 @@ HTML、CSS 記述時の補完機能を強化します。
 ```
 my-website/
 │
-├── index.html          # トップページ
-├── about.html          # 自己紹介ページ
-├── contact.html        # お問い合わせページ
+├─ index.html          # トップページ
+├─ about.html          # 自己紹介ページ
+├─ contact.html        # お問い合わせページ
 │
-├── css/                # CSSファイル用フォルダ
-│   └── style.css       # メインのスタイルシート
+├─ css/                # CSSファイル用フォルダ
+│   └─ style.css       # メインのスタイルシート
 │
-├── js/                 # JavaScriptファイル用フォルダ
-│   └── script.js       # メインのスクリプトファイル
+├─ js/                 # JavaScriptファイル用フォルダ
+│   └─ script.js       # メインのスクリプトファイル
 │
-└── images/             # 画像ファイル用フォルダ
-    ├── logo.png
-    └── background.jpg
+└─ images/             # 画像ファイル用フォルダ
+    ├─ logo.png
+    └─ background.jpg
 ```
 
 > 📝 **ポイント**: 初めから整理されたフォルダ構造を使うことで、ファイルの管理が容易になります。小さなプロジェクトでも良い習慣を身につけておきましょう。
+
+
+
+***
 
 ### 演習問題
 
 #### 問題 1-1: VS Codeでプロジェクトを作成する
 
-新しいWebサイトプロジェクトを以下の手順で作成してください：
+新しい Web サイトプロジェクトを以下の手順で作成してください。
 
-1. デスクトップに「my-portfolio」というフォルダを作成
-2. VS Codeでそのフォルダを開く
-3. 必要なサブフォルダ（css, js, images）を作成
-4. index.htmlファイルをルートフォルダに作成
-5. style.cssファイルをcssフォルダに作成
+1. デスクトップに 「my-portfolio」 というフォルダを作成
+2. VS Code でそのフォルダーを開く
+3. 必要なサブフォルダー (css, js, images) を作成
+4. index.html ファイルをルートフォルダーに作成
+5. style.css ファイルを css フォルダーに作成
 
-\<details> \<summary>ヒント\</summary>
+<details>
+
+<summary>ヒント</summary>
 
 1. デスクトップに新しいフォルダを作成
 2. VS Codeを開き、「ファイル > フォルダを開く」から作成したフォルダを選択
 3. エクスプローラーパネル（左側）の「my-portfolio」を右クリックし、「新しいフォルダ」を選択してサブフォルダを作成
 4. 同様に右クリックから「新しいファイル」を選択してファイルを作成
 
-\</details>
+</details>
 
-#### 問題 1-2: HTMLの基本構造を作成する
+#### 問題 1-2: HTML の基本構造を作成する
 
-作成した「index.html」に、以下を含むHTMLの基本構造を記述してください：
+作成した 「index.html」 に、以下を含む HTML の基本構造を記述してください。
 
-1. HTML5のDocType宣言
-2. html要素（lang属性を"ja"に設定）
-3. head要素（title, meta charset, viewportの設定を含む）
-4. body要素
+1. HTML の DocType 宣言
+2. html 要素 (lang 属性を "ja" に設定)
+3. head 要素 (title, meta charset, viewportの設定を含む)
+4. body 要素
 
-\<details> \<summary>ヒント\</summary>
+<details>
+
+<summary>ヒント</summary>
 
 ```html
 <!DOCTYPE html>
@@ -279,27 +287,29 @@ my-website/
 </html>
 ```
 
-VS Codeでは、「!」と入力してTabキーを押すと、この基本構造が自動的に挿入されます。その後、lang属性やtitleを編集してください。
+VS Codeでは、「!」 と入力して <kbd>Tab</kbd> キーを押すと、この基本構造が自動的に挿入されます。その後、lang属性やtitleを編集してください。
 
-\</details>
+</details>
 
-#### 問題 1-3: Live Serverを使ってHTMLファイルを表示する ⭐
+#### 問題 1-3: Live Server を使って HTML ファイルを表示する ⭐
 
 1. Live Server 拡張機能をインストール
 2. index.html を Live Server で開く
 3. ブラウザで表示されることを確認
 4. テキストを追加して保存し、ブラウザが自動的に更新されるか確認
 
-\<details> \<summary>ヒント\</summary>
+<details>
 
-1. VS Codeの拡張機能タブ (左側メニュー) から Live Server を検索してインストール
-2. index.htmlを開いた状態で、画面右下の「Go Live」ボタンをクリック （または、index.htmlを右クリックして「Live Serverで開く」を選択）
-3. ブラウザが自動的に開き、ページが表示される
-4.  VS Codeでindex.htmlを編集し、bodyに内容を追加して保存
+<summary>ヒント</summary>
+
+1. VS Code の拡張機能タブ (左側メニュー) から Live Server を検索してインストール
+2. index.html を開いた状態で、画面右下の 「Go Live」 ボタンをクリック  (または、index.htm lを右クリックして 「Live Serverで開く」 を選択)
+3. ブラウザーが自動的に開き、ページが表示される
+4.  VS Code で index.html を編集し、body に内容を追加して保存
 
     ```html
     <body>    <h1>私のポートフォリオサイト</h1>    <p>これはLive Serverのテストです。</p></body>
     ```
 5. 保存すると、ブラウザが自動的に更新され、変更が反映される
 
-\</details>
+</details>
