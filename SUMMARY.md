@@ -12,7 +12,8 @@
   * [5. 画像の扱い方とメディア要素](html-and-css/day-01/05-media.md)
 * [Day02](html-and-css/day02/README.md)
   * [6. フォーム要素の基本](html-and-css/day02/06-form.md)
-* [8. レイアウトの基本](html-and-css/8-reiautono.md)
+  * [8. レイアウトの基本](html-and-css/day02/8-reiautono.md)
+  * [9. 一般的なレイアウトパターン](html-and-css/day02/9-nareiautopatn.md)
 * [プロフィールサイト制作ガイド](html-and-css/purofrusaitogaido.md)
 * [Git と PowerShell のインストール](html-and-css/setup.md)
 
