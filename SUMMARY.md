@@ -31,6 +31,11 @@
 * [SQLチートシート](database/sqlchtoshto.md)
 * [よくあるエラーと対処法](database/yokuaruerto.md)
 
+***
+
+* [archive](archive/README.md)
+  * [6. データの集計](archive/06-data-aggregation.md)
+
 ## Algorithm
 
 * [Day 01](algorithm/day-01/README.md)
