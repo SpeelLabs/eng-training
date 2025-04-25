@@ -36,6 +36,7 @@
 ***
 
 * [archive](archive/README.md)
+  * [5. 検索結果の整形](archive/05-formatting-query-results.md)
   * [6. データの集計](archive/06-data-aggregation.md)
 
 ## Algorithm
