@@ -30,6 +30,7 @@
   * [6. データの集計](database/day-02/06-data-aggregation.md)
 * [Day 03](database/day-03/README.md)
   * [7. テーブルの作成と制約](database/day-03/07-tables-and-constraints.md)
+  * [8. テーブルの結合](database/day-03/08-join.md)
 * [SQLチートシート](database/sqlchtoshto.md)
 * [よくあるエラーと対処法](database/yokuaruerto.md)
 * [draft](database/draft/README.md)
