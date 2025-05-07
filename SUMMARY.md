@@ -2,6 +2,22 @@
 
 * [Welcome](README.md)
 
+## Java
+
+* [Day 01](java/day-01/README.md)
+  * [1. JDK の準備と VS Code の設定](java/day-01/1-jdk-noto-vs-code-no.md)
+  * [2. Java プログラムの基本構造](java/day-01/2-java-puroguramuno.md)
+  * [3. 変数とデータ型](java/day-01/3-todta.md)
+  * [4. 基本入出力操作](java/day-01/4.-ji-ben-ru-chu-li-cao-zuo.md)
+  * [5. 演算子と式](java/day-01/5-to.md)
+  * [6. 条件分岐](java/day-01/6.-tiao-jian-fen-qi.md)
+  * [デバッグ問題](java/day-01/debaggu.md)
+  * [実践問題①](java/day-01/shi-jian-wen-ti.md)
+
+***
+
+* [Day 02](day-02.md)
+
 ## HTML & CSS
 
 * [Day 01](html-and-css/day-01/README.md)

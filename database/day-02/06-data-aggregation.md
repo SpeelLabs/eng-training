@@ -342,18 +342,18 @@ HAVING COUNT(*) >= 2;
 * `HAVING` 句: 集計後のグループを絞り込む (グループに対する条件)
 
 ```sql
--- 価格が5,000円以上の商品だけを対象に、平均価格が50,000円以上のカテゴリを抽出
+-- 価格が 5,000円以上の商品だけを対象に、平均価格が 50,000円以上のカテゴリを抽出
 SELECT 
     category_id,
     ROUND(AVG(price), 0) AS 平均価格,
     COUNT(*) AS 商品数
 FROM products
 WHERE 
-    price >= 5000  -- 個々の商品に対する条件（集計前）
+    price >= 5000  -- 個々の商品に対する条件 (集計前)
 GROUP BY 
     category_id
 HAVING 
-    AVG(price) >= 50000;  -- グループに対する条件（集計後）
+    AVG(price) >= 50000;  -- グループに対する条件 (集計後)
 ```
 
 <details>
