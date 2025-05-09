@@ -10,13 +10,15 @@
   * [3. 変数とデータ型](java/day-01/3-todta.md)
   * [4. 基本入出力操作](java/day-01/4.-ji-ben-ru-chu-li-cao-zuo.md)
   * [5. 演算子と式](java/day-01/5-to.md)
-  * [6. 条件分岐](java/day-01/6.-tiao-jian-fen-qi.md)
-  * [デバッグ問題](java/day-01/debaggu.md)
-  * [実践問題①](java/day-01/shi-jian-wen-ti.md)
 
 ***
 
-* [Day 02](day-02.md)
+* [Day 02](day-02/README.md)
+  * [6. 条件分岐](day-02/6.-tiao-jian-fen-qi.md)
+  * [7. 繰り返し処理](day-02/7-rishi.md)
+  * [2. 配列](day-02/2.-pei-lie.md)
+* [デバッグ問題](debaggu.md)
+* [実践問題①](shi-jian-wen-ti.md)
 
 ## HTML & CSS
 
