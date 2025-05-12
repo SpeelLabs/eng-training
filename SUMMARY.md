@@ -1,6 +1,10 @@
 # Table of contents
 
 * [Welcome](README.md)
+* [Draft](draft/README.md)
+  * [1. オブジェクト指向入門](draft/1-obujekuto.md)
+  * [2. 継承](draft/2.-ji-cheng.md)
+  * [3. カプセル化](draft/3-kapuseru.md)
 
 ## Java
 
@@ -16,7 +20,15 @@
 * [Day 02](day-02/README.md)
   * [6. 条件分岐](day-02/6.-tiao-jian-fen-qi.md)
   * [7. 繰り返し処理](day-02/7-rishi.md)
-  * [2. 配列](day-02/2.-pei-lie.md)
+  * [8. 配列](day-02/8.-pei-lie.md)
+* [Day 03](day-03/README.md)
+  * [3. メソッド ①](day-03/3-mesoddo.md)
+  * [4. メソッド ②](day-03/4-mesoddo.md)
+* [Day 04](day-04/README.md)
+  * [5. ソースファイルの分割とパッケージ](day-04/5-ssufairunotopakkji.md)
+* [Day 05](day-05/README.md)
+  * [4. ArrayList](day-05/4.-arraylist.md)
+  * [5. HashMap](day-05/5.-hashmap.md)
 * [デバッグ問題](debaggu.md)
 * [実践問題①](shi-jian-wen-ti.md)
 
@@ -69,8 +81,8 @@
   * [4. Python: 基本演算子](algorithm/day-01/04-operator.md)
   * [5. Python: 関数の基本](algorithm/day-01/05-function.md)
   * [6. Python: 条件分岐](algorithm/day-01/06-conditional.md)
-  * [実践問題 ①](algorithm/day-01/algorithm-exercises-01.md)
 * [Day 02](algorithm/day-02.md)
+* [実践問題 ①](algorithm/algorithm-exercises-01.md)
 
 ## Getting Started
 
