@@ -439,6 +439,23 @@ public class NestedMethodExample {
 
 <details>
 
+<summary>期待される出力結果</summary>
+
+サイズ4の場合:
+
+```
+----
+****
+****
+****
+****
+----
+```
+
+</details>
+
+<details>
+
 <summary>ヒント</summary>
 
 * まず `printLine` メソッドを定義します
