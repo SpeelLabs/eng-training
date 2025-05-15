@@ -1,9 +1,15 @@
 # Table of contents
 
 * [Welcome](README.md)
-* [Draft](draft/README.md)
-  * [2. 継承](draft/2.-ji-cheng.md)
-  * [3. カプセル化](draft/3-kapuseru.md)
+* [Draft](draft.md)
+
+## Java OOP
+
+* [Day 01](java-oop/day-01/README.md)
+  * [1. オブジェクト指向入門](java-oop/day-01/1-obujekuto.md)
+* [Day 02](java-oop/day-02/README.md)
+  * [2. 継承](java-oop/day-02/2.-ji-cheng.md)
+  * [3. カプセル化](java-oop/day-02/3-kapuseru.md)
 
 ## Java
 

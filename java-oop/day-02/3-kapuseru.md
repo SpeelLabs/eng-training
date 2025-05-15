@@ -18,7 +18,9 @@ public class BankAccount {
         balance += amount;
     }
 }
+```
 
+```java
 // 使用例
 public class BankDemo {
     public static void main( String[] args ) {
@@ -26,26 +28,26 @@ public class BankDemo {
         account.accountNumber = "12345-67890";
         account.deposit(1000);  // 正規の方法での入金
         
-        // 直接口座番号を変更（これは望ましくない）
+        // 直接口座番号を変更 (これは望ましくない)
         account.accountNumber = "99999-99999";  // 口座番号の不正な変更！
         
-        // 直接残高をマイナスに変更（これも望ましくない）
+        // 直接残高をマイナスに変更 (これも望ましくない)
         account.balance = -50000;  // 不正な残高操作！
     }
 }
 ```
 
-上記の例では、`accountNumber`と`balance`フィールドが`public`になっているため、誰でも直接アクセスして変更できてしまいます。これにより、口座番号の不正な変更や残高のマイナス化など、データの整合性を損なう危険性があります。
+上記の例では、`accountNumber` と `balance` フィールドが `public` になっているため、誰でも直接アクセスして変更できてしまいます。これにより、口座番号の不正な変更や残高のマイナス化など、データの整合性を損なう危険性があります。
 
 > 📝 **ポイント** 外部からの直接アクセスを許可すると、データの不正な変更が可能になるだけでなく、内部実装の変更が困難になります。例えば残高の計算方法や保存形式を変更したい場合、そのフィールドを直接使用しているすべてのコードを修正しなければなりません。
 
 #### 3.1.2 カプセル化とは何か
 
-**カプセル化**（encapsulation）とは、データ（フィールド）と、それを操作するメソッドをひとつの単位にまとめ、外部からの不正なアクセスからデータを保護する仕組みです。
+**カプセル化** (encapsulation) とは、データ (フィールド) と、それを操作するメソッドをひとつの単位にまとめ、外部からの不正なアクセスからデータを保護する仕組みです。
 
 カプセル化の主要な要素：
 
-1. データを`private`（非公開）にする
+1. データを`private` (非公開) にする
 2. データへのアクセスは`public`メソッドを通じてのみ許可する
 3. データの検証や加工をメソッド内で行う
 
@@ -64,8 +66,8 @@ public class BankAccount {
     // 入金メソッド - データ検証を含む
     public void deposit( double amount ) {
         if (amount > 0) {
-            balance += amount;
-            System.out.println(amount + "円を入金しました。残高: " + balance + "円");
+            this.balance += amount;
+            System.out.println(amount + "円を入金しました。残高: " + this.balance + "円");
         } else {
             System.out.println("無効な入金額です。");
         }
@@ -73,9 +75,9 @@ public class BankAccount {
     
     // 引き出しメソッド - データ検証を含む
     public void withdraw( double amount ) {
-        if (amount > 0 && balance >= amount) {
-            balance -= amount;
-            System.out.println(amount + "円を引き出しました。残高: " + balance + "円");
+        if (amount > 0 && this.balance >= amount) {
+            this.balance -= amount;
+            System.out.println(amount + "円を引き出しました。残高: " + this.balance + "円");
         } else {
             System.out.println("引き出しできません。残高不足または無効な金額です。");
         }
@@ -83,20 +85,20 @@ public class BankAccount {
     
     // 残高照会メソッド - データへの読み取りアクセスを提供
     public double getBalance() {
-        return balance;
+        return this.balance;
     }
     
     // 口座番号照会メソッド - データの一部を隠した形で返す
     public String getAccountNumber() {
         // 下4桁以外を*で隠す
-        return "******" + accountNumber.substring(accountNumber.length() - 4);
+        return "******" + this.accountNumber.substring(this.accountNumber.length() - 4);
     }
 }
 ```
 
-この例では、`accountNumber`と`balance`フィールドを`private`にし、入金や引き出しなどの操作は専用のメソッドを通じてのみ行えるようにしています。これにより、口座番号の変更を防止し、残高が負の値になることを防ぎます。さらに、`getAccountNumber`メソッドでは、セキュリティのために口座番号の一部だけを返しています。
+この例では、`accountNumber` と `balance` フィールドを `private` にし、入金や引き出しなどの操作は専用のメソッドを通じてのみ行えるようにしています。これにより、口座番号の変更を防止し、残高が負の値になることを防ぎます。さらに、`getAccountNumber` メソッドでは、セキュリティのために口座番号の一部だけを返しています。
 
-> 📝 **ポイント** カプセル化は「情報隠蔽」（information hiding）とも呼ばれ、クラスの内部実装の詳細を利用者から隠します。これにより、内部実装を変更しても、外部のコードに影響を与えることなく改善や修正ができます。
+> 📝 **ポイント** カプセル化は 「情報隠蔽」 (information hiding) とも呼ばれ、クラスの内部実装の詳細を利用者から隠します。これにより、内部実装を変更しても、外部のコードに影響を与えることなく改善や修正ができます。
 
 ### 3.2 アクセス修飾子の使い方
 
@@ -107,7 +109,7 @@ Javaには、クラス、フィールド、メソッドのアクセス範囲を�
 | アクセス修飾子     | クラス内 | 同じパッケージ | サブクラス | 他のパッケージ |
 | ----------- | ---- | ------- | ----- | ------- |
 | `private`   | ✓    | ✗       | ✗     | ✗       |
-| （デフォルト）     | ✓    | ✓       | ✗     | ✗       |
+| (デフォルト)     | ✓    | ✓       | ✗     | ✗       |
 | `protected` | ✓    | ✓       | ✓     | ✗       |
 | `public`    | ✓    | ✓       | ✓     | ✓       |
 
@@ -125,25 +127,25 @@ public class AccessModifierExample {
 }
 ```
 
-> 📝 **ポイント** アクセス修飾子を選ぶ際は、「最小限の公開」の原則に従うとよいでしょう。つまり、必要な範囲でのみアクセス可能にし、それ以外のアクセスは制限します。これにより、カプセル化の効果が最大限に発揮されます。
+> 📝 **ポイント** アクセス修飾子を選ぶ際は、「最小限の公開」 の原則に従うとよいでしょう。つまり、必要な範囲でのみアクセス可能にし、それ以外のアクセスは制限します。これにより、カプセル化の効果が最大限に発揮されます。
 
 #### 3.2.2 カプセル化に適したアクセス修飾子の選択
 
 効果的なカプセル化のためのアクセス修飾子の選択ガイド：
 
-1. **フィールド（データ）**
-   * 通常は`private`を使用して、クラス外からの直接アクセスを防ぎます
-   * サブクラスからのアクセスが必要な場合は`protected`を検討します
+1. **フィールド (データ)**
+   * 通常は `private` を使用して、クラス外からの直接アクセスを防ぎます
+   * サブクラスからのアクセスが必要な場合は `protected` を検討します
 2. **メソッド**
-   * 外部から呼び出されるAPIメソッドは`public`にします
-   * クラス内でのみ使用される補助メソッドは`private`にします
-   * サブクラスでオーバーライドさせたいメソッドは`protected`を使用します
+   * 外部から呼び出される API メソッドは `public` にします
+   * クラス内でのみ使用される補助メソッドは `private` にします
+   * サブクラスでオーバーライドさせたいメソッドは `protected` を使用します
 3. **コンストラクター**
-   * 通常は`public`ですが、特定のパターン（シングルトンパターンなど）では`private`にする場合もあります
+   * 通常は `public` ですが、特定のパターン (シングルトンパターンなど) では `private` にする場合もあります
 
 ```java
 public class Student {
-    // データはprivateに保護
+    // データは private に保護
     private String name;
     private int id;
     private int[] grades;
@@ -155,7 +157,7 @@ public class Student {
         this.grades = new int[0];
     }
     
-    // 公開APIメソッド
+    // 公開 API メソッド
     public void addGrade( int grade ) {
         if (grade >= 0 && grade <= 100) {
             int[] newGrades = new int[grades.length + 1];
@@ -182,7 +184,7 @@ public class Student {
         return grade >= 0 && grade <= 100;
     }
     
-    // データへのアクセサ（ゲッター）
+    // データへのアクセサー (ゲッター)
     public String getName() {
         return name;
     }
@@ -198,13 +200,13 @@ public class Student {
 }
 ```
 
-> 📝 **ポイント** 上記の例では、成績データ（`grades`）は直接変更できないようにprivateになっています。`addGrade`メソッドを通じてのみ値を追加でき、その際にデータの検証（0-100の範囲チェック）も行います。これにより、不正な値が入ることを防いでいます。また、`getGrades`メソッドは配列のコピーを返すことで、外部からの変更を防いでいます。
+> 📝 **ポイント** 上記の例では、成績データ ( `grades` ) は直接変更できないように private になっています。`addGrade` メソッドを通じてのみ値を追加でき、その際にデータの検証 ( 0 - 100 の範囲チェック) も行います。これにより、不正な値が入ることを防いでいます。また、`getGrades` メソッドは配列のコピーを返すことで、外部からの変更を防いでいます。
 
 ### 3.3 ゲッターとセッターの実装
 
 #### 3.3.1 基本的なゲッターとセッター
 
-**ゲッター**（getter）と**セッター**（setter）は、カプセル化されたデータにアクセスするための標準的なメソッドです。
+**ゲッター** (getter) と**セッター** (setter) は、カプセル化されたデータにアクセスするための標準的なメソッドです。
 
 * **ゲッター** - データを取得するためのメソッド
 * **セッター** - データを設定するためのメソッド
@@ -217,16 +219,16 @@ public class Person {
     // コンストラクター
     public Person( String name, int age ) {
         this.name = name;
-        setAge(age);  // 検証を含むセッターを使用
+        this.setAge(age);  // 検証を含むセッターを使用
     }
     
     // ゲッター
     public String getName() {
-        return name;
+        return this.name;
     }
     
     public int getAge() {
-        return age;
+        return this.age;
     }
     
     // セッター
@@ -248,7 +250,9 @@ public class Person {
 }
 ```
 
-使用例：
+<details>
+
+<summary>使用例</summary>
 
 ```java
 public class PersonDemo {
@@ -277,6 +281,8 @@ public class PersonDemo {
 }
 ```
 
+</details>
+
 > 📝 **ポイント** ゲッターとセッターを使用することで、データのフォーマット変更、検証、変換などの処理を一箇所で管理できます。また、将来的に内部実装を変更する際も、外部のコードに影響を与えずに変更できます。
 
 ### 3.4 カプセル化の実用例
@@ -293,23 +299,23 @@ public class UserAccount {
     private boolean active;
     
     public UserAccount( String username, String password, String email ) {
-        setUsername(username);
-        setPassword(password);
-        setEmail(email);
+        this.setUsername(username);
+        this.setPassword(password);
+        this.setEmail(email);
         this.active = true;
     }
     
     // ゲッター
     public String getUsername() {
-        return username;
+        return this.username;
     }
     
     public String getEmail() {
-        return email;
+        return this.email;
     }
     
     public boolean isActive() {
-        return active;
+        return this.active;
     }
     
     // パスワードにはゲッターがない - 外部からの取得は不可
@@ -347,7 +353,7 @@ public class UserAccount {
     
     // ログイン処理
     public boolean login( String inputPassword ) {
-        if (active && password.equals(inputPassword)) {
+        if (this.active && this.password.equals(inputPassword)) {
             return true;
         }
         return false;
@@ -355,24 +361,24 @@ public class UserAccount {
 }
 ```
 
-この例では、パスワード情報への直接アクセスを防ぎつつ、各種データに対して適切な検証を行っています。また、`login`メソッドによって、パスワードを公開せずに認証機能を提供しています。
+この例では、パスワード情報への直接アクセスを防ぎつつ、各種データに対して適切な検証を行っています。また、`login` メソッドによって、パスワードを公開せずに認証機能を提供しています。
 
 > 📝 **ポイント** セキュリティ関連のデータは特に厳格なカプセル化が必要です。このような情報には、ゲッターを提供せず、認証などの機能メソッドを通じてのみ間接的に使用するようにします。
 
 ***
 
-#### 演習問題
+### 演習問題
 
-**問題 3-1: 基本的なカプセル化の実装**
+#### 問題 3-1: 基本的なカプセル化の実装
 
-以下の仕様に基づいて、適切にカプセル化された「Circle」（円）クラスを作成してください。
+以下の仕様に基づいて、適切にカプセル化された 「Circle」 (円) クラスを作成してください。
 
 * フィールド:
-  * radius（半径、double型）- 正の値である必要がある
+  * radius (半径、double 型) - 正の値である必要がある
 * メソッド:
   * コンストラクター: 半径を受け取る
   * getRadius(): 半径を返す
-  * setRadius(): 半径を設定（値の検証を含む）
+  * setRadius(): 半径を設定 (値の検証を含む)
   * calculateArea(): 円の面積を計算して返す
   * calculateCircumference(): 円周の長さを計算して返す
 
@@ -407,36 +413,42 @@ public class CircleDemo {
 }
 ```
 
-\<details> \<summary>ヒント\</summary>
+<details>
 
-* `radius`フィールドに`private`修飾子を使用してください
-* `setRadius`メソッドでは、値が正であるかどうかを検証してください
-* 面積の計算には`Math.PI * radius * radius`を使用します
-* 円周の計算には`2 * Math.PI * radius`を使用します
+<summary>ヒント</summary>
+
+* `radius` フィールドに `private` 修飾子を使用してください
+* `setRadius` メソッドでは、値が正であるかどうかを検証してください
+* 面積の計算には `Math.PI * radius * radius` を使用します
+* 円周の計算には `2 * Math.PI * radius` を使用します
 * 無効な値が設定されようとした場合は例外をスローするか、エラーメッセージを表示してください
 
-\</details>
+</details>
 
-**問題 3-2: 商品在庫管理クラスの実装**
+#### 問題 3-2: 商品在庫管理クラスの実装
 
-オンラインショップの商品を表す「Product」クラスを作成してください。以下の仕様を満たすように実装してください。
+オンラインショップの商品を表す 「Product」 クラスを作成してください。以下の仕様を満たすように実装してください。
 
 * フィールド:
-  * id（商品ID、int型）
-  * name（商品名、String型）- 空であってはならない
-  * price（価格、double型）- 0以上である必要がある
-  * stock（在庫数、int型）- 0以上である必要がある
+  * id (商品 ID、int 型)
+  * name (商品名、String 型) - 空であってはならない
+  * price (価格、double 型) - 0 以上である必要がある
+  * stock (在庫数、int 型) - 0 以上である必要がある
 * メソッド:
   * コンストラクター: すべてのフィールドを初期化
-  * ゲッターとセッター: すべてのフィールドに対して（適切な検証を含む）
-  * addStock(int quantity): 在庫を増やす
-  * removeStock(int quantity): 在庫を減らす（在庫不足の場合はfalseを返す）
-  * getFormattedPrice(): "¥1,000"のような形式で価格を返す
-  * displayInfo(): 商品情報を表示
+  * ゲッターとセッター: すべてのフィールドに対して (適切な検証を含む)
+  * `addStock(int quantity)`: 在庫を増やす
+  * `removeStock(int quantity)`: 在庫を減らす (在庫不足の場合はfalseを返す)
+  * `getFormattedPrice()`: "¥1,000"のような形式で価格を返す
+  * `displayInfo()`: 商品情報を表示
 
-\<details> \<summary>ヒント\</summary>
+<details>
+
+<summary>ヒント</summary>
 
 * すべてのフィールドに`private`修飾子を使用してください
 * セッターでは、各フィールドに適切な検証を実装してください
 * `addStock`と`removeStock`メソッドでも引数の検証を行ってください
 * `getFormattedPrice`メソッドでは\`
+
+</details>
