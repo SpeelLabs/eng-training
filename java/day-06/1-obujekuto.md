@@ -1,7 +1,5 @@
 # 1. オブジェクト指向入門
 
-## 1. オブジェクト指向入門 - データと機能の組み合わせ
-
 ### 1.1 関連するデータのグループ化
 
 #### 1.1.1 従来の変数による表現の限界
@@ -67,19 +65,19 @@ person2.email = "sato@example.com";
 
 ```java
 public class Person {
-    // データメンバー（フィールド）
+    // フィールド
     String name;
     int age;
     String email;
     
-    // 機能（メソッド）
-    void displayInfo() {
+    // メソッド
+    public void displayInfo() {
         System.out.println("名前: " + name);
         System.out.println("年齢: " + age);
         System.out.println("メール: " + email);
     }
     
-    void celebrateBirthday() {
+    public void celebrateBirthday() {
         age++;
         System.out.println(name + "さんの誕生日おめでとう！" + age + "歳になりました。");
     }
@@ -122,7 +120,7 @@ public class PersonTest {
 
 ```java
 public class Person {
-    // データメンバー
+    // フィールド
     String name;
     int age;
     String email;
@@ -135,7 +133,7 @@ public class Person {
     }
     
     // 表示用メソッド
-    public void displayInfo() {
+    void displayInfo() {
         System.out.println("名前: " + name);
         System.out.println("年齢: " + age);
         System.out.println("メール: " + email);
