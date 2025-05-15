@@ -1,5 +1,7 @@
 # 1. オブジェクト指向入門
 
+## 1. オブジェクト指向入門 - データと機能の組み合わせ
+
 ### 1.1 関連するデータのグループ化
 
 #### 1.1.1 従来の変数による表現の限界
@@ -9,7 +11,7 @@
 例えば、人の情報を表現する場合を考えてみましょう。
 
 ```java
-// 別々の変数として管理する場合bbbbbb
+// 別々の変数として管理する場合
 String personName = "田中太郎";
 int personAge = 25;
 String personEmail = "tanaka@example.com";
@@ -26,19 +28,19 @@ String anotherPersonEmail = "sato@example.com";
 
 #### 1.1.2 カスタムデータ型としてのクラス
 
-Javaのクラスは独自のデータ型を定義する仕組みです。基本型（int, char, boolean）だけでなく、プログラマーが必要とする 「人」 や 「車」 のような概念を型として表現できます。
+Javaのクラスは独自のデータ型を定義する仕組みです。基本型（int, char, boolean）だけでなく、プログラマーが必要とする「人」や「車」のような概念を型として表現できます。
 
 ```java
 // 人の情報を一つの型にまとめたクラス
 public class Person {
-    // フィールド
+    // データメンバー（フィールド）
     String name;
     int age;
     String email;
 }
 ```
 
-クラスを定義すると、Java の基本型と同じように新しい型として使えるようになります。つまり 「Person 型」 の変数を宣言し、その中に関連情報をまとめて扱えます。
+クラスを定義すると、Javaの基本型と同じように新しい型として使えるようになります。つまり「人型」（Person型）の変数を宣言し、その中に関連情報をまとめて扱えます。
 
 ```java
 // クラスを使用して情報を管理
@@ -53,7 +55,7 @@ person2.age = 30;
 person2.email = "sato@example.com";
 ```
 
-このように型を定義することで、関連データをまとまりとして扱え、コードの意図も明確になります。「人」 を表す型として宣言することで、その変数が何を表しているのか一目でわかります。
+このように型を定義することで、関連データをまとまりとして扱え、コードの意図も明確になります。「人」を表す型として宣言することで、その変数が何を表しているのか一目でわかります。
 
 > 📝 **ポイント** クラスは単なる情報の入れ物ではなく、新しいデータ型を定義するものです。これにより、問題領域に合わせた適切な抽象化が可能になります。
 
@@ -61,16 +63,16 @@ person2.email = "sato@example.com";
 
 #### 1.2.1 情報と処理の一体化
 
-クラスの特徴は、情報 (フィールド) だけでなく、その情報に対する操作 (メソッド) も一緒に定義できることです。情報と処理を一つの単位として扱うことができます。
+クラスの強力な特徴は、情報（フィールド）だけでなく、その情報に対する操作（メソッド）も一緒に定義できることです。情報と処理を一つの単位として扱うことができます。
 
 ```java
 public class Person {
-    // フィールド
+    // データメンバー（フィールド）
     String name;
     int age;
     String email;
     
-    // メソッド
+    // 機能（メソッド）
     void displayInfo() {
         System.out.println("名前: " + name);
         System.out.println("年齢: " + age);
@@ -84,9 +86,7 @@ public class Person {
 }
 ```
 
-<details>
-
-<summary>使用例</summary>
+使用例：
 
 ```java
 public class PersonTest {
@@ -105,11 +105,7 @@ public class PersonTest {
 }
 ```
 
-</details>
-
-<details>
-
-<summary>実行結果</summary>
+実行結果：
 
 ```
 名前: 田中太郎
@@ -117,8 +113,6 @@ public class PersonTest {
 メール: tanaka@example.com
 田中太郎さんの誕生日おめでとう！26歳になりました。
 ```
-
-</details>
 
 > 📝 **ポイント** データと、そのデータを操作する機能を一つの単位にまとめることで、コードの論理的なまとまりが良くなります。データがどのように使われるべきかが、クラス内に定義されるため、使い方の一貫性も保たれます。
 
@@ -128,7 +122,7 @@ public class PersonTest {
 
 ```java
 public class Person {
-    // フィールド
+    // データメンバー
     String name;
     int age;
     String email;
@@ -141,7 +135,7 @@ public class Person {
     }
     
     // 表示用メソッド
-    void displayInfo() {
+    public void displayInfo() {
         System.out.println("名前: " + name);
         System.out.println("年齢: " + age);
         System.out.println("メール: " + email);
@@ -149,9 +143,7 @@ public class Person {
 }
 ```
 
-<details>
-
-<summary>使用例</summary>
+使用例：
 
 ```java
 public class PersonTest {
@@ -167,21 +159,19 @@ public class PersonTest {
 }
 ```
 
-</details>
-
 > 📝 **ポイント** コンストラクターを使うと、オブジェクト作成時に必要な初期値をすぐに設定できます。`new Person(...)` の括弧内に初期値を指定します。これにより、オブジェクトが常に有効な状態で作成されることを保証できます。
 
 ### 1.3 クラスとオブジェクトの関係
 
 #### 1.3.1 設計図と実体の概念
 
-クラスとオブジェクトの関係を理解するために、「設計図と実体」 というアナロジーがよく使われます。
+クラスとオブジェクトの関係を理解するために、「設計図と実体」というアナロジーがよく使われます。
 
-* **クラス**は型の定義です。例えば 「Bookとはどんな情報を持つか」 を定めたものです。
-* **オブジェクト**はその型の実際のデータです。例えば 「Java入門」 という具体的な一冊の本です。
+* **クラス**は型の定義です。例えば「Bookとはどんな情報を持つか」を定めたものです。
+* **オブジェクト**はその型の実際のデータです。例えば「Java入門」という具体的な一冊の本です。
 
 ```java
-// Bookクラス (設計図)
+// Bookクラス（設計図）
 public class Book {
     String title;
     String author;
@@ -205,7 +195,7 @@ public class Book {
 ```java
 public class BookDemo {
     public static void main( String[] args ) {
-        // Bookクラスから複数のオブジェクトを作成 (実体)
+        // Bookクラスから複数のオブジェクトを作成（実体）
         Book book1 = new Book( "Java入門", "山田太郎", 300 );
         Book book2 = new Book( "データベースの基礎", "佐藤花子", 250 );
         
@@ -217,9 +207,7 @@ public class BookDemo {
 }
 ```
 
-<details>
-
-<summary>実行結果</summary>
+実行結果：
 
 ```
 タイトル: Java入門
@@ -231,9 +219,7 @@ public class BookDemo {
 ページ数: 250
 ```
 
-</details>
-
-> 📝 **ポイント** 同じクラス (設計図) から複数の異なるオブジェクト (実体) を作成できます。各オブジェクトは同じ構造 (フィールドとメソッド) を持ちますが、それぞれ独自のデータ値を持ちます。
+> 📝 **ポイント** 同じクラス（設計図）から複数の異なるオブジェクト（実体）を作成できます。各オブジェクトは同じ構造（フィールドとメソッド）を持ちますが、それぞれ独自のデータ値を持ちます。
 
 #### 1.3.2 オブジェクト間の連携
 
@@ -289,9 +275,7 @@ public class Course {
 }
 ```
 
-<details>
-
-<summary>使用例</summary>
+使用例：
 
 ```java
 public class SchoolDemo {
@@ -314,11 +298,7 @@ public class SchoolDemo {
 }
 ```
 
-</details>
-
-<details>
-
-<summary>実行結果</summary>
+実行結果：
 
 ```
 田中太郎さんをJava プログラミングに登録しました。
@@ -328,9 +308,7 @@ Java プログラミングの登録学生一覧:
 - 佐藤花子 (ID: 1002)
 ```
 
-</details>
-
-> 📝 **ポイント** オブジェクト指向プログラミングでは、オブジェクトが他のオブジェクトを参照したり、操作したりできます。これにより、現実世界のような関係性 (学生とコースの関係など) をプログラムで表現できます。オブジェクト間の連携が、複雑なシステムを構築する上での基盤となります。
+> 📝 **ポイント** オブジェクト指向プログラミングでは、オブジェクトが他のオブジェクトを参照したり、操作したりできます。これにより、現実世界のような関係性（学生とコースの関係など）をプログラムで表現できます。オブジェクト間の連携が、複雑なシステムを構築する上での基盤となります。
 
 ### 1.4 オブジェクト指向の利点
 
@@ -338,8 +316,8 @@ Java プログラミングの登録学生一覧:
 
 オブジェクト指向プログラミングには多くの利点があります。特に重要なのは、コードの整理と再利用性の向上です。
 
-1. **コードの整理** 関連する情報と処理がひとつの場所にまとまるため、コードが整理されます。「何がどこにあるか」 が明確になり、プログラムの構造が理解しやすくなります。
-2. **再利用性** 一度作成したクラスは異なる場所やプロジェクトで再利用できます。例えば、よく使う 「住所」 や 「日付」 のクラスを作れば、それを様々なプログラムで使い回せます。
+1. **コードの整理** 関連する情報と処理がひとつの場所にまとまるため、コードが整理されます。「何がどこにあるか」が明確になり、プログラムの構造が理解しやすくなります。
+2. **再利用性** 一度作成したクラスは異なる場所やプロジェクトで再利用できます。例えば、よく使う「住所」や「日付」のクラスを作れば、それを様々なプログラムで使い回せます。
 
 #### 1.4.2 保守性と拡張性
 
@@ -350,23 +328,23 @@ Java プログラミングの登録学生一覧:
 
 > 📝 **ポイント** オブジェクト指向プログラミングは、大規模なプログラム開発や、チームでの開発において特に効果を発揮します。複雑なシステムを管理しやすい形で設計できるため、長期的なプロジェクトでは特に重要です。
 
-
-
 ***
 
-### 演習問題
+#### 演習問題
 
-#### 問題 1-1: 基本的なクラスの作成
+**問題 1-1: 基本的なクラスの作成**
 
-人 (Person) を表すクラスを作成してください。以下のフィールドとメソッドを含めます。
+人 ( Person ) を表すクラスを作成してください。以下のフィールドとメソッドを含めます。
 
-* フィールド: name (名前), age (年齢)
+* フィールド: name（名前）, age（年齢）
 * コンストラクター: 名前と年齢を受け取るコンストラクター
-* メソッド: introduce() (自己紹介を表示する)
+* メソッド: introduce()（自己紹介を表示する）
 
-<details>
+```java
+java// ここにPersonクラスを作成してください
+```
 
-<summary>使用例</summary>
+使用例:
 
 ```java
 public class PersonDemo {
@@ -376,8 +354,6 @@ public class PersonDemo {
     }
 }
 ```
-
-</details>
 
 <details>
 
@@ -389,20 +365,22 @@ public class PersonDemo {
 
 </details>
 
-#### 問題 1-2: 計算機クラスの実装
+**問題 1-2: 計算機クラスの実装**
 
-簡単な計算機 (Calculator) クラスを作成してください。以下の機能を実装します。
+簡単な計算機 ( Calculator ) クラスを作成してください。以下の機能を実装します。
 
 * フィールドなし
 * メソッド:
-  * add(int a, int b): 2つの整数の和を返す
-  * subtract(int a, int b): a から b を引いた値を返す
-  * multiply(int a, int b): 2つの整数の積を返す
-  * divide(int a, int b): a を b で割った値を返す (b が 0 の場合は0を返す)
+  * add( int a, int b ): 2つの整数の和を返す
+  * subtract( int a, int b ): aからbを引いた値を返す
+  * multiply( int a, int b ): 2つの整数の積を返す
+  * divide( int a, int b ): aをbで割った値を返す（bが0の場合は0を返す）
 
-<details>
+```java
+java// ここにCalculatorクラスを作成してください
+```
 
-<summary>使用例</summary>
+使用例:
 
 ```java
 public class CalculatorDemo {
@@ -418,21 +396,19 @@ public class CalculatorDemo {
 }
 ```
 
-</details>
-
 <details>
 
 <summary>ヒント</summary>
 
 * 戻り値のあるメソッドは `return` を使って値を返します
-* 除算は特別な処理が必要です (0 で割る場合)
+* 除算は特別な処理が必要です（0で割る場合）
 * 条件分岐には `if` 文を使います
 
 </details>
 
-#### 問題 1-3: 商品クラスの作成
+**問題 1-3: 商品クラスの作成**
 
-オンラインショップの商品 (Product) を表すクラスを作成してください。
+オンラインショップの商品 ( Product ) を表すクラスを作成してください。
 
 * フィールド:
   * id (商品ID)
@@ -444,11 +420,13 @@ public class CalculatorDemo {
 * メソッド:
   * displayInfo(): 商品情報を表示
   * isAvailable(): 在庫があるかどうかを真偽値で返す
-  * sell(int quantity): 指定数量を販売する（在庫から減らす）。在庫不足の場合はメッセージを表示
+  * sell( int quantity ): 指定数量を販売する（在庫から減らす）。在庫不足の場合はメッセージを表示
 
-<details>
+```java
+java// ここにProductクラスを作成してください
+```
 
-<summary>使用例</summary>
+使用例:
 
 ```java
 public class ProductDemo {
@@ -469,8 +447,6 @@ public class ProductDemo {
 }
 ```
 
-</details>
-
 <details>
 
 <summary>ヒント</summary>
@@ -481,9 +457,9 @@ public class ProductDemo {
 
 </details>
 
-#### 問題 1-4: 書籍と図書館の実装
+**問題 1-4: 書籍と図書館の実装**
 
-書籍 (Book) と図書館 (Library) のクラスを作成してください。
+書籍 ( Book ) と図書館 ( Library ) のクラスを作成してください。
 
 1. Book クラス:
    * フィールド: title, author
@@ -496,12 +472,14 @@ public class ProductDemo {
      * bookCount (現在の蔵書数)
    * コンストラクター: 図書館名を受け取る
    * メソッド:
-     * addBook(Book book): 蔵書に本を追加
-     * findBooksByAuthor(String author): 指定著者の本を検索して表示
+     * addBook( Book book ): 蔵書に本を追加
+     * findBooksByAuthor( String author ): 指定著者の本を検索して表示
 
-<details>
+```java
+java// ここにBookクラスとLibraryクラスを作成してください
+```
 
-<summary>使用例</summary>
+使用例:
 
 ```java
 public class LibraryDemo {
@@ -521,20 +499,18 @@ public class LibraryDemo {
 }
 ```
 
-</details>
-
 <details>
 
 <summary>ヒント</summary>
 
-* Book クラスはシンプルなデータ保持クラスです
-* Library クラスのコンストラクターでは、空の配列を作成します: `this.books = new Book[100];`&#x20;
-* addBook メソッドでは、現在の冊数を追跡する変数を増やしていきます
-* findBooksByAuthor メソッドでは、すべての本をループして著者を比較します
+* Bookクラスはシンプルなデータ保持クラスです
+* Libraryクラスのコンストラクターでは、空の配列を作成します: `this.books = new Book[100];`
+* addBookメソッドでは、現在の冊数を追跡する変数を増やしていきます
+* findBooksByAuthorメソッドでは、すべての本をループして著者を比較します
 
 </details>
 
-#### 問題 1-5: オンラインショッピングカートの実装
+**問題 1-5: オンラインショッピングカートの実装**
 
 オンラインショッピングカートを表すクラスを作成しましょう。
 
@@ -554,9 +530,12 @@ public class LibraryDemo {
      * displayCart(): カートの内容と合計金額を表示
      * checkout(): 購入処理（在庫を減らし、カートを空にする）
 
-<details>
+```java
+// 前の問題のProductクラスを使用します
+// ここにCartItemクラスとShoppingCartクラスを作成してください
+```
 
-<summary>使用例</summary>
+使用例:
 
 ```java
 public class ShoppingTest {
@@ -586,15 +565,13 @@ public class ShoppingTest {
 }
 ```
 
-</details>
-
 <details>
 
 <summary>ヒント</summary>
 
-* CartItem クラスは商品とその数量の組み合わせを表します
-* ShoppingCart クラスは CartItem の配列を管理します
-* カートに同じ商品を追加する場合は、既存のアイテムの数量を増やすか、新しいアイテムとして追加するかを選べます (この問題では新しいアイテムとして追加してください)
-* checkout() メソッドでは、各商品の在庫を減らし、カート内の商品をクリアします
+* CartItemクラスは商品とその数量の組み合わせを表します
+* ShoppingCartクラスはCartItemの配列を管理します
+* カートに同じ商品を追加する場合は、既存のアイテムの数量を増やすか、新しいアイテムとして追加するかを選べます（この問題では新しいアイテムとして追加してください）
+* checkout()メソッドでは、各商品の在庫を減らし、カート内の商品をクリアします
 
 </details>

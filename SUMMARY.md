@@ -2,7 +2,6 @@
 
 * [Welcome](README.md)
 * [Draft](draft/README.md)
-  * [1. オブジェクト指向入門](draft/1-obujekuto.md)
   * [2. 継承](draft/2.-ji-cheng.md)
   * [3. カプセル化](draft/3-kapuseru.md)
 
@@ -26,6 +25,8 @@
 * [Day 05](java/day-05/README.md)
   * [4. ArrayList](java/day-05/4.-arraylist.md)
   * [5. HashMap](java/day-05/5.-hashmap.md)
+* [Day 06](java/day-06/README.md)
+  * [1. オブジェクト指向入門](java/day-06/1-obujekuto.md)
 * [デバッグ問題](java/debaggu.md)
 * [実践問題①](java/java-exercises-01.md)
 * [実践問題②](java/java-exercises-02.md)
