@@ -427,20 +427,20 @@ public class CircleDemo {
 
 #### 問題 3-2: 商品在庫管理クラスの実装
 
-オンラインショップの商品を表す 「Product」 クラスを作成してください。以下の仕様を満たすように実装してください。
+オンラインショップの商品を表す「Product」クラスを作成してください。以下の仕様を満たすように実装してください。
 
 * フィールド:
-  * id (商品 ID、int 型)
-  * name (商品名、String 型) - 空であってはならない
-  * price (価格、double 型) - 0 以上である必要がある
-  * stock (在庫数、int 型) - 0 以上である必要がある
+  * id（商品ID、int型）
+  * name（商品名、String型）- 空であってはならない
+  * price（価格、double型）- 0以上である必要がある
+  * stock（在庫数、int型）- 0以上である必要がある
 * メソッド:
   * コンストラクター: すべてのフィールドを初期化
-  * ゲッターとセッター: すべてのフィールドに対して (適切な検証を含む)
-  * `addStock(int quantity)`: 在庫を増やす
-  * `removeStock(int quantity)`: 在庫を減らす (在庫不足の場合はfalseを返す)
-  * `getFormattedPrice()`: "¥1,000"のような形式で価格を返す
-  * `displayInfo()`: 商品情報を表示
+  * ゲッターとセッター: すべてのフィールドに対して（適切な検証を含む）
+  * addStock(int quantity): 在庫を増やす
+  * removeStock(int quantity): 在庫を減らす（在庫不足の場合はfalseを返す）
+  * getFormattedPrice(): "¥1,000"のような形式で価格を返す
+  * displayInfo(): 商品情報を表示
 
 <details>
 
@@ -449,6 +449,111 @@ public class CircleDemo {
 * すべてのフィールドに`private`修飾子を使用してください
 * セッターでは、各フィールドに適切な検証を実装してください
 * `addStock`と`removeStock`メソッドでも引数の検証を行ってください
-* `getFormattedPrice`メソッドでは\`
+* `getFormattedPrice`メソッドでは`String.format("%,d円", price)`などを使用して金額をフォーマットします
+
+</details>
+
+問題 3-3: 学生情報管理クラスの実装
+
+大学の学生情報を管理する「Student」クラスを作成してください。以下の要件を満たすように実装してください。
+
+* フィールド:
+  * id（学生ID、String型）- 変更不可
+  * name（氏名、String型）
+  * gpa（成績平均値、double型）- 0.0〜4.0の範囲内
+  * year（学年、int型）- 1〜4の範囲内
+  * active（在学状態、boolean型）
+* メソッド:
+  * コンストラクター: id, name, year を受け取る（GPAは0.0、activeはtrueで初期化）
+  * 適切なゲッターとセッター（ただしidは変更不可）
+  * incrementYear(): 学年を1つ上げる（ただし4年生以上は変更なし）
+  * updateGPA(double newGrade): 新しい成績を加味してGPAを更新する
+  * displayStudentInfo(): 学生情報を表示する
+
+```java
+// ここにStudentクラスを実装してください
+```
+
+<details>
+
+<summary>ヒント</summary>
+
+* 学生IDは一度設定したら変更できないようにしましょう（setterを作成しない）
+* GPAの更新は、例えば現在のGPAと新しい成績の平均を取るなどの計算で実装できます
+* 学年の増加は最大値（4年）を超えないように注意してください
+* データの検証を含むセッターを実装してください
+
+</details>
+
+#### 問題 3-4: 銀行システム
+
+銀行口座情報を管理するクラスを作成してください。以下の要件を満たすように実装してください。
+
+* 口座クラス（BankAccount）:
+  * フィールド: accountNumber（口座番号）, ownerName（口座名義）, balance（残高）
+  * メソッド:
+    * コンストラクター: 口座番号と名義を受け取る（残高は0で初期化）
+    * deposit(): 入金処理（金額が正の値であることを検証）
+    * withdraw(): 引き出し処理（金額が正の値で、かつ残高以下であることを検証）
+    * transfer(): 別の口座への送金処理
+    * getAccountSummary(): 口座情報の概要を文字列で返す
+* 当座預金口座クラス（CheckingAccount）（口座クラスを継承）:
+  * 追加フィールド: overdraftLimit（当座貸越限度額）
+  * withdraw()をオーバーライド: 残高+当座貸越限度額までの引き出しを許可
+
+```java
+// ここにBankAccountクラスとCheckingAccountクラスを実装してください
+```
+
+<details>
+
+<summary>ヒント</summary>
+
+* すべてのフィールドは`private`にして、必要なゲッターとセッターを提供してください
+* 入金・引き出し・送金処理では、適切なバリデーションを行ってください
+* 送金処理は、送金元口座からの引き出しと送金先口座への入金で構成されます
+* 当座預金口座では、残高がマイナスになることも許可しますが、当座貸越限度額を超えることはできません
+
+</details>
+
+#### 問題 3-5: 社員管理システム
+
+小さな会社の社員情報を管理するシステムを設計してください。以下のクラスを実装してください。
+
+* 社員クラス（Employee）:
+  * フィールド:
+    * id（社員ID）
+    * name（氏名）
+    * department（部署）
+    * salary（給与）
+    * hireDate（入社日）
+  * メソッド:
+    * 適切なコンストラクター、ゲッター、セッター
+    * calculateYearsOfService(): 勤続年数を計算
+    * 給与を更新するメソッド（新しい給与が現在の給与より低くならないように検証）
+* 社員管理クラス（EmployeeManager）:
+  * フィールド: 社員のリスト
+  * メソッド:
+    * 社員の追加・削除
+    * 社員の検索（ID、名前、部署などで）
+    * 部署ごとの平均給与を計算
+    * 全社員情報の表示
+
+```java
+import java.util.ArrayList;
+import java.util.Date;
+
+// ここにEmployeeクラスとEmployeeManagerクラスを実装してください
+```
+
+<details>
+
+<summary>ヒント</summary>
+
+* Dateクラスを使って入社日を管理します
+* 勤続年数の計算には、現在の日付と入社日の差を使用します
+* 社員管理クラスでは、ArrayListを使って社員リストを管理します
+* 検索メソッドは、条件に一致する社員だけを含む新しいリストを返すと便利です
+* 部署ごとの平均給与計算は、部署名をキーとするHashMapを使うと効率的です
 
 </details>
