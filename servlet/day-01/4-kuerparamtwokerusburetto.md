@@ -75,7 +75,7 @@ response.setContentType("text/html;charset=UTF-8");
 {% code title="GreetingServlet.java" %}
 ```java
 // レスポンス出力用のライターを取得
-java.io.PrintWriter out = response.getWriter();
+PrintWriter out = response.getWriter();
 
 // HTMLを出力
 out.println("<!DOCTYPE html>");
@@ -131,7 +131,7 @@ public class GreetingServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         // レスポンス出力用のライターを取得
-        java.io.PrintWriter out = response.getWriter();
+        PrintWriter out = response.getWriter();
 
         // HTMLを出力
         out.println("<!DOCTYPE html>");
