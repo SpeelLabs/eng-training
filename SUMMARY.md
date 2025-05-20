@@ -3,6 +3,14 @@
 * [Welcome](README.md)
 * [Draft](draft.md)
 
+## Servlet
+
+* [Day 01](servlet/day-01/README.md)
+  * [1. プロジェクト構成と開発の準備](servlet/day-01/1-purojekutotono.md)
+  * [2. 最初のサーブレット作成](servlet/day-01/2-nosburetto.md)
+  * [3. アプリケーションの設定と実行](servlet/day-01/3-apurikshonnoto.md)
+  * [4. クエリーパラメーターを受け取るサーブレット](servlet/day-01/4-kuerparamtwokerusburetto.md)
+
 ## Java OOP
 
 * [Day 01](java-oop/day-01/README.md)
