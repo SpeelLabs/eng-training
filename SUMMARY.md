@@ -9,7 +9,7 @@
   * [1. プロジェクト構成と開発の準備](servlet/day-01/1-purojekutotono.md)
   * [2. 最初のサーブレット作成](servlet/day-01/2-nosburetto.md)
   * [3. アプリケーションの設定と実行](servlet/day-01/3-apurikshonnoto.md)
-  * [4. クエリーパラメーターを受け取るサーブレット](servlet/day-01/4-kuerparamtwokerusburetto.md)
+  * [4. パラメーターを受け取るサーブレット](servlet/day-01/4-paramtwokerusburetto.md)
 
 ## Java OOP
 
@@ -39,8 +39,6 @@
 * [Day 05](java/day-05/README.md)
   * [4. ArrayList](java/day-05/4.-arraylist.md)
   * [5. HashMap](java/day-05/5.-hashmap.md)
-* [Day 06](java/day-06/README.md)
-  * [1. オブジェクト指向入門](java/day-06/1-obujekuto.md)
 * [デバッグ問題](java/debaggu.md)
 * [実践問題①](java/java-exercises-01.md)
 * [実践問題②](java/java-exercises-02.md)
