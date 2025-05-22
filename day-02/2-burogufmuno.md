@@ -199,7 +199,7 @@ HTML フォームは、ユーザーから情報を収集するための重要な
 </head>
 <body>
     <h1>新規ブログ投稿</h1>
-    <form action="createPost" method="post">
+    <form action="<%= request.getContextPath() %>/createPost" method="post">
         <div>
             <label for="title">タイトル:</label>
             <input type="text" id="title" name="title" required>
