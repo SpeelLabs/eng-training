@@ -41,9 +41,12 @@ HTML フォームは、ユーザーから情報を収集するための重要な
 ```
 {% endcode %}
 
+*
+
 > 📝 **ポイント**: `form` タグの重要な属性:
 >
 > * `action` : フォームデータを送信する先の URL (サーブレットのパス)
+> * &#x20;`request.getContextPath()` を使用することで、アプリケーションのコンテキストパス (例: `/blog-app` ) を取得できます。これにより、フォームがどのディレクトリに置かれていても、正しいサーブレットにデータを送信できます。
 > * `method` : HTTP メソッド (GET または POST) 。POST はデータを URL に表示せず、大量のデータを送信できます。
 > * 入力フィールドの `name` 属性は、サーバーでデータを取得する際のパラメーター名になります。
 
@@ -55,7 +58,7 @@ HTML フォームは、ユーザーから情報を収集するための重要な
 
     {% code overflow="wrap" %}
     ```html
-    <form action="createPost" method="post">
+    <form action="<%= request.getContextPath() %>/createPost" method="post">
     ```
     {% endcode %}
 
