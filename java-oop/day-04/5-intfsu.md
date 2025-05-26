@@ -2,94 +2,124 @@
 
 #### 5.1 インターフェースの基本概念
 
-**5.1.1 なぜインターフェースが必要か**
+**5.1.1 複数の役割を持つオブジェクト**
 
-プログラムを作っていると、「同じ機能を持つが、実装方法が違う」クラスを作ることがよくあります。例えば、データを保存する機能を考えてみましょう。
+現実世界では、一つのものが複数の役割を持つことがよくあります。例えば、「スマートフォン」は「電話」としても「カメラ」としても「音楽プレイヤー」としても機能します。
 
-```java
-// 問題のある設計例
-public class FileDataSaver {
-    public void save(String data) {
-        System.out.println("ファイルにデータを保存: " + data);
-    }
-}
-
-public class DatabaseSaver {
-    public void saveToDatabase(String data) {  // メソッド名が違う！
-        System.out.println("データベースにデータを保存: " + data);
-    }
-}
-```
-
-上記の例では、どちらも「データを保存する」機能ですが、メソッド名が異なります。これでは、保存方法を切り替えたい時にコードを大幅に変更する必要があります。
-
-> 📝 **ポイント** 同じ機能を持つクラス群で、メソッド名や使い方がバラバラだと、コードの変更が困難になります。
-
-**5.1.2 インターフェースによる統一**
-
-**インターフェース**は、「どんなメソッドを持つべきか」の設計図です。クラスとは違い、実装は含まず、メソッドの名前と引数だけを定義します。
+プログラムでも同様に、一つのクラスが複数の機能を提供したい場合があります。しかし、Javaは単一継承のため、一つのクラスしか継承できません。
 
 ```java
-// インターフェースの定義
-public interface DataSaver {
-    void save(String data);  // 実装は書かない
+// 抽象クラスだけでは限界がある例
+public abstract class Device {
+    public abstract void powerOn();
 }
-```
 
-このインターフェースを実装すると：
-
-```java
-// ファイル保存クラス
-public class FileDataSaver implements DataSaver {
+// スマートフォンは Device を継承
+public class Smartphone extends Device {
     @Override
-    public void save(String data) {
-        System.out.println("ファイルにデータを保存: " + data);
+    public void powerOn() {
+        System.out.println("スマートフォンの電源をオンにします");
     }
+    
+    // 電話機能が欲しいが、Phone クラスを継承できない
+    // カメラ機能が欲しいが、Camera クラスを継承できない
+}
+```
+
+このような場合に**インターフェース**が役立ちます。インターフェースは「契約」のようなもので、「このメソッドを必ず実装してください」という約束を定義します。
+
+> 📝 **ポイント** インターフェースは「〜ができる」という能力を表現します。Phoneable（電話できる）、Photographable（写真が撮れる）といった具合です。
+
+**5.1.2 インターフェースとは**
+
+**インターフェース**は、クラスが実装すべきメソッドの仕様を定義する仕組みです。抽象クラスと似ていますが、以下の違いがあります：
+
+| 特徴    | 抽象クラス      | インターフェース                |
+| ----- | ---------- | ----------------------- |
+| 継承数   | 1つのみ       | 複数可能                    |
+| メソッド  | 抽象・具象両方可能  | 抽象メソッドのみ（Java 8以降は例外あり） |
+| フィールド | 通常のフィールド可能 | publicstaticfinal のみ    |
+| 用途    | is-a関係     | can-do関係                |
+
+```java
+// 電話機能のインターフェース
+public interface Callable {
+    void makeCall(String number);
+    void receiveCall();
 }
 
-// データベース保存クラス
-public class DatabaseSaver implements DataSaver {
+// カメラ機能のインターフェース
+public interface Photographable {
+    void takePhoto();
+    void viewPhotos();
+}
+
+// 複数のインターフェースを実装
+public class Smartphone implements Callable, Photographable {
+    private String model;
+    
+    public Smartphone(String model) {
+        this.model = model;
+    }
+    
+    // Callable インターフェースの実装
     @Override
-    public void save(String data) {
-        System.out.println("データベースにデータを保存: " + data);
+    public void makeCall(String number) {
+        System.out.println(model + "で" + number + "に電話をかけます");
+    }
+    
+    @Override
+    public void receiveCall() {
+        System.out.println(model + "で電話を受けます");
+    }
+    
+    // Photographable インターフェースの実装
+    @Override
+    public void takePhoto() {
+        System.out.println(model + "で写真を撮影します");
+    }
+    
+    @Override
+    public void viewPhotos() {
+        System.out.println(model + "で写真を表示します");
     }
 }
 ```
 
-これで両方のクラスが同じ `save()` メソッドを持つようになりました。
+> 📝 **ポイント** インターフェースを使うことで、継承の制限を超えて複数の「機能」を一つのクラスに持たせることができます。
 
-> 📝 **ポイント** インターフェースを使うことで、異なるクラスでも同じ方法で使えるようになります。
-
-#### 5.2 インターフェースの実装
+#### 5.2 インターフェースの実装と活用
 
 **5.2.1 基本的な実装方法**
 
-インターフェースは `interface` キーワードで定義し、クラスでは `implements` キーワードで実装します。
+インターフェースを実装するクラスは、`implements` キーワードを使い、すべての抽象メソッドを実装する必要があります。
 
 ```java
-// 支払い処理のインターフェース
-public interface PaymentProcessor {
+// 決済機能のインターフェース
+public interface Payable {
     boolean processPayment(double amount);
     String getPaymentMethod();
 }
-```
 
-このインターフェースを実装するクラスを作成：
-
-```java
-// クレジットカード支払い
-public class CreditCardPayment implements PaymentProcessor {
+// クレジットカード決済
+public class CreditCard implements Payable {
     private String cardNumber;
+    private double balance;
     
-    public CreditCardPayment(String cardNumber) {
+    public CreditCard(String cardNumber, double balance) {
         this.cardNumber = cardNumber;
+        this.balance = balance;
     }
     
     @Override
     public boolean processPayment(double amount) {
-        System.out.println("クレジットカードで" + amount + "円を支払い");
-        // 実際の処理はここに書く
-        return true;
+        if (balance >= amount) {
+            balance -= amount;
+            System.out.println("クレジットカードで" + amount + "円決済しました");
+            return true;
+        }
+        System.out.println("残高不足です");
+        return false;
     }
     
     @Override
@@ -98,23 +128,164 @@ public class CreditCardPayment implements PaymentProcessor {
     }
 }
 
-// 銀行振込支払い
-public class BankTransferPayment implements PaymentProcessor {
-    private String bankAccount;
+// 電子マネー決済
+public class ElectronicMoney implements Payable {
+    private String serviceName;
+    private double balance;
     
-    public BankTransferPayment(String bankAccount) {
-        this.bankAccount = bankAccount;
+    public ElectronicMoney(String serviceName, double balance) {
+        this.serviceName = serviceName;
+        this.balance = balance;
     }
     
     @Override
     public boolean processPayment(double amount) {
-        System.out.println("銀行振込で" + amount + "円を支払い");
-        return true;
+        if (balance >= amount) {
+            balance -= amount;
+            System.out.println(serviceName + "で" + amount + "円決済しました");
+            return true;
+        }
+        System.out.println("チャージ残高不足です");
+        return false;
     }
     
     @Override
     public String getPaymentMethod() {
-        return "銀行振込";
+        return serviceName;
+    }
+}
+```
+
+**5.2.2 ポリモーフィズムの活用**
+
+インターフェースを使うことで、異なるクラスのオブジェクトを同じ型として扱えます。
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+public class PaymentDemo {
+    public static void main(String[] args) {
+        // 異なる決済方法のオブジェクトを作成
+        Payable creditCard = new CreditCard("1234-5678", 50000);
+        Payable eMoney = new ElectronicMoney("PayPay", 10000);
+        
+        // 同じインターフェース型として扱える
+        List<Payable> paymentMethods = new ArrayList<>();
+        paymentMethods.add(creditCard);
+        paymentMethods.add(eMoney);
+        
+        // どの決済方法でも同じように処理できる
+        double purchaseAmount = 3000;
+        
+        for (Payable payment : paymentMethods) {
+            System.out.println("決済方法: " + payment.getPaymentMethod());
+            payment.processPayment(purchaseAmount);
+            System.out.println("---");
+        }
+    }
+}
+```
+
+<details>
+
+<summary>実行結果</summary>
+
+```
+決済方法: クレジットカード
+クレジットカードで3000.0円決済しました
+---
+決済方法: PayPay
+PayPayで3000.0円決済しました
+---
+```
+
+</details>
+
+> 📝 **ポイント** インターフェースを使うことで、具体的な実装に依存しない柔軟なプログラムを作成できます。新しい決済方法を追加する場合も、既存のコードを変更せずに済みます。
+
+#### 5.3 実用的なインターフェース設計
+
+**5.3.1 Webアプリケーションでの活用**
+
+実際のWebアプリケーション開発では、インターフェースを使って機能を分離します。
+
+```java
+// データアクセス層のインターフェース
+public interface UserRepository {
+    void save(User user);
+    User findById(int id);
+    List<User> findAll();
+    void delete(int id);
+}
+
+// データベース実装
+public class DatabaseUserRepository implements UserRepository {
+    @Override
+    public void save(User user) {
+        System.out.println("データベースにユーザーを保存: " + user.getName());
+    }
+    
+    @Override
+    public User findById(int id) {
+        System.out.println("データベースからユーザーID " + id + " を検索");
+        return new User(id, "データベースユーザー");
+    }
+    
+    @Override
+    public List<User> findAll() {
+        System.out.println("データベースから全ユーザーを取得");
+        return new ArrayList<>();
+    }
+    
+    @Override
+    public void delete(int id) {
+        System.out.println("データベースからユーザーID " + id + " を削除");
+    }
+}
+
+// ファイル実装（テスト用など）
+public class FileUserRepository implements UserRepository {
+    @Override
+    public void save(User user) {
+        System.out.println("ファイルにユーザーを保存: " + user.getName());
+    }
+    
+    @Override
+    public User findById(int id) {
+        System.out.println("ファイルからユーザーID " + id + " を検索");
+        return new User(id, "ファイルユーザー");
+    }
+    
+    @Override
+    public List<User> findAll() {
+        System.out.println("ファイルから全ユーザーを取得");
+        return new ArrayList<>();
+    }
+    
+    @Override
+    public void delete(int id) {
+        System.out.println("ファイルからユーザーID " + id + " を削除");
+    }
+}
+
+// サービス層（ビジネスロジック）
+public class UserService {
+    private UserRepository userRepository;
+    
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+    
+    public void registerUser(String name) {
+        User user = new User(0, name);
+        userRepository.save(user);
+        System.out.println("ユーザー登録完了: " + name);
+    }
+    
+    public void displayUser(int id) {
+        User user = userRepository.findById(id);
+        System.out.println("ユーザー情報: " + user.getName());
     }
 }
 ```
@@ -124,116 +295,204 @@ public class BankTransferPayment implements PaymentProcessor {
 <summary>使用例</summary>
 
 ```java
-public class PaymentDemo {
+public class RepositoryDemo {
     public static void main(String[] args) {
-        // インターフェース型の変数で受け取る
-        PaymentProcessor payment1 = new CreditCardPayment("1234-5678-9012-3456");
-        PaymentProcessor payment2 = new BankTransferPayment("12345678");
+        // データベース実装を使用
+        UserRepository dbRepo = new DatabaseUserRepository();
+        UserService dbService = new UserService(dbRepo);
         
-        // 同じ方法で使用可能
-        payment1.processPayment(1000);
-        System.out.println("支払い方法: " + payment1.getPaymentMethod());
+        dbService.registerUser("田中太郎");
+        dbService.displayUser(1);
         
-        payment2.processPayment(2000);
-        System.out.println("支払い方法: " + payment2.getPaymentMethod());
+        System.out.println("---");
+        
+        // ファイル実装に切り替え
+        UserRepository fileRepo = new FileUserRepository();
+        UserService fileService = new UserService(fileRepo);
+        
+        fileService.registerUser("佐藤花子");
+        fileService.displayUser(2);
     }
 }
 ```
 
 </details>
 
-> 📝 **ポイント** インターフェースを実装するクラスは、インターフェースで定義されたすべてのメソッドを実装する必要があります。
+> 📝 **ポイント** インターフェースを使うことで、データの保存方法（データベース、ファイル、メモリなど）を後から変更できる柔軟な設計になります。テスト時には軽量な実装、本番では本格的な実装を使い分けることができます。
 
-**5.2.2 複数のインターフェースの実装**
+**5.3.2 機能の組み合わせ**
 
-一つのクラスは複数のインターフェースを実装できます。
+複数のインターフェースを実装することで、柔軟な機能の組み合わせが可能です。
 
 ```java
-public interface Printable {
-    void print();
+// 読み取り可能
+public interface Readable {
+    String read();
 }
 
-public interface Saveable {
-    void save();
+// 書き込み可能
+public interface Writable {
+    void write(String content);
 }
 
-// 複数のインターフェースを実装
-public class Document implements Printable, Saveable {
+// 読み書き両方可能なファイル
+public class TextFile implements Readable, Writable {
+    private String filename;
     private String content;
     
-    public Document(String content) {
+    public TextFile(String filename) {
+        this.filename = filename;
+        this.content = "";
+    }
+    
+    @Override
+    public String read() {
+        System.out.println(filename + "からデータを読み取り");
+        return content;
+    }
+    
+    @Override
+    public void write(String content) {
+        System.out.println(filename + "にデータを書き込み");
+        this.content = content;
+    }
+}
+
+// 読み取り専用ファイル
+public class ReadOnlyFile implements Readable {
+    private String filename;
+    private String content;
+    
+    public ReadOnlyFile(String filename, String content) {
+        this.filename = filename;
         this.content = content;
     }
     
     @Override
-    public void print() {
-        System.out.println("文書を印刷: " + content);
-    }
-    
-    @Override
-    public void save() {
-        System.out.println("文書を保存: " + content);
+    public String read() {
+        System.out.println(filename + "からデータを読み取り（読み取り専用）");
+        return content;
     }
 }
 ```
 
-> 📝 **ポイント** クラスは複数のインターフェースを実装できるため、柔軟な設計が可能です。
+> 📝 **ポイント** インターフェースを組み合わせることで、必要な機能だけを持つクラスを設計できます。セキュリティや用途に応じて、読み取り専用、書き込み専用、読み書き両対応などを使い分けられます。
 
-#### 5.3 インターフェースの実用例
+***
 
-**5.3.1 通知システムの実装**
+#### 演習問題
 
-様々な方法で通知を送るシステムを作ってみましょう。
+**問題 5-1: 基本的なインターフェースの実装**
+
+動物の鳴き声と移動方法を表現するインターフェースを作成してください。
+
+1. `Soundable` インターフェース:
+   * メソッド: `makeSound()` (鳴き声を出す)
+2. `Movable` インターフェース:
+   * メソッド: `move()` (移動する)
+3. `Cat` クラス:
+   * 両方のインターフェースを実装
+   * 鳴き声: "ニャー！"
+   * 移動: "四本足で歩きます"
+4. `Fish` クラス:
+   * `Movable` インターフェースのみ実装
+   * 移動: "ひれで泳ぎます"
 
 ```java
-// 通知インターフェース
-public interface NotificationSender {
-    void sendNotification(String message, String recipient);
+// ここにインターフェースとクラスを実装してください
+
+```
+
+<details>
+
+<summary>使用例</summary>
+
+```java
+public class AnimalInterfaceDemo {
+    public static void main(String[] args) {
+        Cat cat = new Cat();
+        Fish fish = new Fish();
+        
+        // 猫は鳴くことも移動することもできる
+        if (cat instanceof Soundable) {
+            ((Soundable) cat).makeSound();
+        }
+        if (cat instanceof Movable) {
+            ((Movable) cat).move();
+        }
+        
+        System.out.println("---");
+        
+        // 魚は移動のみ
+        if (fish instanceof Movable) {
+            ((Movable) fish).move();
+        }
+    }
 }
 ```
 
+</details>
+
+<details>
+
+<summary>ヒント</summary>
+
+* インターフェースは `interface` キーワードで定義します
+* 複数のインターフェースを実装する場合は、カンマで区切ります: `implements Soundable, Movable`
+* すべての抽象メソッドを実装する必要があります
+
+</details>
+
+**問題 5-2: 計算機インターフェース**
+
+異なる種類の計算機を表現するインターフェースを作成してください。
+
+1. `Calculator` インターフェース:
+   * メソッド: `add(double a, double b)`, `subtract(double a, double b)`, `getCalculatorType()`
+2. `BasicCalculator` クラス:
+   * 基本的な計算機能
+   * タイプ: "基本計算機"
+3. `ScientificCalculator` クラス:
+   * 基本計算に加えて、`multiply(double a, double b)`, `divide(double a, double b)` を追加
+   * タイプ: "関数電卓"
+
 ```java
-// メール通知
-public class EmailNotification implements NotificationSender {
-    @Override
-    public void sendNotification(String message, String recipient) {
-        System.out.println("📧 メール送信");
-        System.out.println("宛先: " + recipient);
-        System.out.println("内容: " + message);
-    }
-}
+// ここにインターフェースとクラスを実装してください
 
-// SMS通知
-public class SmsNotification implements NotificationSender {
-    @Override
-    public void sendNotification(String message, String recipient) {
-        System.out.println("📱 SMS送信");
-        System.out.println("電話番号: " + recipient);
-        System.out.println("内容: " + message);
-    }
-}
-
-// Slack通知
-public class SlackNotification implements NotificationSender {
-    @Override
-    public void sendNotification(String message, String recipient) {
-        System.out.println("💬 Slack送信");
-        System.out.println("チャンネル: " + recipient);
-        System.out.println("内容: " + message);
-    }
-}
 ```
 
-通知システムを使うクラス：
+<details>
+
+<summary>ヒント</summary>
+
+* `ScientificCalculator` では追加のメソッドを独自に定義できます
+* 除算では0で割る場合の処理を考慮してください
+* インターフェースのメソッドは自動的に `public abstract` になります
+
+</details>
+
+**問題 5-3: 通知システム**
+
+異なる方法で通知を送るシステムを作成してください。
+
+1. `Notifiable` インターフェース:
+   * メソッド: `sendNotification(String message)`, `getNotificationType()`
+2. `EmailNotification` クラス:
+   * メールアドレスを受け取るコンストラクター
+   * メール通知を実装
+3. `SMSNotification` クラス:
+   * 電話番号を受け取るコンストラクター
+   * SMS通知を実装
+4. `NotificationManager` クラス:
+   * 複数の通知方法を管理
+   * `addNotifier(Notifiable notifier)` と `sendToAll(String message)` メソッド
 
 ```java
-public class NotificationManager {
-    public void sendAlert(NotificationSender sender, String message, String recipient) {
-        System.out.println("=== 緊急通知 ===");
-        sender.sendNotification(message, recipient);
-        System.out.println("================");
-    }
-}
+import java.util.ArrayList;
+import java.util.List;
+
+// ここに通知システムを実装してください
+
 ```
 
 <details>
@@ -245,134 +504,12 @@ public class NotificationDemo {
     public static void main(String[] args) {
         NotificationManager manager = new NotificationManager();
         
-        // 異なる通知方法を同じように使用
-        manager.sendAlert(
-            new EmailNotification(),
-            "システムエラーが発生しました",
-            "admin@company.com"
-        );
+        // 異なる通知方法を登録
+        manager.addNotifier(new EmailNotification("user@example.com"));
+        manager.addNotifier(new SMSNotification("090-1234-5678"));
         
-        manager.sendAlert(
-            new SmsNotification(),
-            "サーバーダウンです",
-            "090-1234-5678"
-        );
-        
-        manager.sendAlert(
-            new SlackNotification(),
-            "メンテナンス開始",
-            "#general"
-        );
-    }
-}
-```
-
-</details>
-
-> 📝 **ポイント** インターフェースを使うことで、新しい通知方法を追加する際も既存のコードを変更する必要がありません。
-
-**5.3.2 Webアプリケーションでの活用**
-
-実際のWebアプリケーション開発でもインターフェースは重要です。
-
-```java
-// ユーザー情報を取得するインターフェース
-public interface UserRepository {
-    User findById(int id);
-    List<User> findAll();
-    void save(User user);
-    void delete(int id);
-}
-```
-
-```java
-// データベース実装
-public class DatabaseUserRepository implements UserRepository {
-    @Override
-    public User findById(int id) {
-        System.out.println("データベースからユーザーID " + id + " を検索");
-        // 実際のデータベース処理
-        return new User(id, "データベースユーザー");
-    }
-    
-    @Override
-    public List<User> findAll() {
-        System.out.println("データベースから全ユーザーを取得");
-        return Arrays.asList(new User(1, "ユーザー1"), new User(2, "ユーザー2"));
-    }
-    
-    @Override
-    public void save(User user) {
-        System.out.println("データベースにユーザーを保存: " + user.getName());
-    }
-    
-    @Override
-    public void delete(int id) {
-        System.out.println("データベースからユーザーID " + id + " を削除");
-    }
-}
-
-// テスト用の実装
-public class MockUserRepository implements UserRepository {
-    @Override
-    public User findById(int id) {
-        System.out.println("テスト用ユーザーを返却");
-        return new User(id, "テストユーザー");
-    }
-    
-    @Override
-    public List<User> findAll() {
-        return Arrays.asList(new User(99, "テストユーザー"));
-    }
-    
-    @Override
-    public void save(User user) {
-        System.out.println("テスト: ユーザー保存をシミュレート");
-    }
-    
-    @Override
-    public void delete(int id) {
-        System.out.println("テスト: ユーザー削除をシミュレート");
-    }
-}
-```
-
-> 📝 **ポイント** 実際の開発では、本番用とテスト用で異なる実装を使い分けることがあります。インターフェースがあることで、実装を簡単に切り替えられます。
-
-***
-
-#### 演習問題
-
-**問題 5-1: 基本的なインターフェースの実装**
-
-図形の面積を計算するインターフェース `Shape` を作成し、それを実装する `Rectangle` (長方形) と `Circle` (円) クラスを作成してください。
-
-* Shape インターフェース:
-  * メソッド: `double calculateArea()`, `String getShapeName()`
-* Rectangle クラス:
-  * フィールド: width, height
-  * コンストラクター: 幅と高さを受け取る
-* Circle クラス:
-  * フィールド: radius
-  * コンストラクター: 半径を受け取る
-
-```java
-// ここにインターフェースとクラスを実装してください
-
-```
-
-<details>
-
-<summary>使用例</summary>
-
-```java
-public class ShapeDemo {
-    public static void main(String[] args) {
-        Shape rectangle = new Rectangle(5.0, 3.0);
-        Shape circle = new Circle(4.0);
-        
-        System.out.println(rectangle.getShapeName() + "の面積: " + rectangle.calculateArea());
-        System.out.println(circle.getShapeName() + "の面積: " + circle.calculateArea());
+        // 全ての方法で通知を送信
+        manager.sendToAll("重要なお知らせがあります");
     }
 }
 ```
@@ -383,111 +520,72 @@ public class ShapeDemo {
 
 <summary>ヒント</summary>
 
-* 長方形の面積: width × height
-* 円の面積: π × radius² (Math.PIを使用)
-* インターフェースのメソッドはすべて実装する必要があります
+* `NotificationManager` では `List<Notifiable>` を使って通知方法を管理します
+* 各通知クラスのコンストラクターで宛先情報を保存します
+* `sendToAll` メソッドではリスト内の全ての通知方法を使用します
 
 </details>
 
-**問題 5-2: 複数インターフェースの実装**
+**問題 5-4: 図形描画システム**
 
-以下の2つのインターフェースを作成し、両方を実装する `SmartPhone` クラスを作成してください。
+図形を描画するシステムをインターフェースで設計してください。
 
-* Phone インターフェース:
-  * メソッド: `void makeCall(String number)`, `void receiveCall(String number)`
-* Camera インターフェース:
-  * メソッド: `void takePicture()`, `void recordVideo()`
-* SmartPhone クラス:
-  * フィールド: model (機種名)
-  * 両方のインターフェースを実装
-
-```java
-// ここにインターフェースとクラスを実装してください
-
-```
-
-<details>
-
-<summary>ヒント</summary>
-
-* 複数のインターフェースは `implements Interface1, Interface2` のように実装します
-* すべてのメソッドに適切なメッセージを表示する実装を行ってください
-
-</details>
-
-**問題 5-3: 計算機システムの実装**
-
-電卓の機能を表すインターフェース `Calculator` を作成し、異なる種類の計算機クラスを実装してください。
-
-* Calculator インターフェース:
-  * メソッド: `double add(double a, double b)`, `double subtract(double a, double b)`, `double multiply(double a, double b)`, `double divide(double a, double b)`
-* BasicCalculator クラス:
-  * 基本的な四則演算を実装
-* ScientificCalculator クラス:
-  * 基本演算に加えて、power（べき乗）メソッドを追加
-  * 除算時にゼロ除算チェックを実装
-
-```java
-// ここにインターフェースとクラスを実装してください
-
-```
-
-<details>
-
-<summary>ヒント</summary>
-
-* べき乗は `Math.pow(base, exponent)` を使用
-* ゼロ除算の場合は適切なメッセージを表示し、0を返すか例外をスローしてください
-
-</details>
-
-**問題 5-4: ファイル処理システム**
-
-ファイル操作を表すインターフェース `FileProcessor` を作成し、異なるファイル形式に対応するクラスを実装してください。
-
-* FileProcessor インターフェース:
-  * メソッド: `void readFile(String fileName)`, `void writeFile(String fileName, String content)`, `String getFileType()`
-* TextFileProcessor クラス:
-  * テキストファイル（.txt）の処理
-* CsvFileProcessor クラス:
-  * CSVファイル（.csv）の処理
-* JsonFileProcessor クラス:
-  * JSONファイル（.json）の処理
-
-各クラスでは、それぞれのファイル形式に応じたメッセージを表示してください。
-
-```java
-// ここにインターフェースとクラスを実装してください
-
-```
-
-<details>
-
-<summary>ヒント</summary>
-
-* 実際のファイル処理は実装せず、コンソールにメッセージを表示するだけで構いません
-* 各ファイル形式の特徴を活かしたメッセージを考えてみてください
-
-</details>
-
-**問題 5-5: オンラインショップ決済システム**
-
-オンラインショップの決済システムを、インターフェースを使って実装してください。
-
-* PaymentMethod インターフェース:
-  * メソッド: `boolean processPayment(double amount)`, `String getPaymentType()`, `double getTransactionFee(double amount)`
-* 実装クラス:
-  * CreditCardPayment: 手数料3%
-  * BankTransferPayment: 手数料200円固定
-  * DigitalWalletPayment: 手数料1%
-* PaymentSystem クラス:
-  * メソッド: `void processOrder(PaymentMethod payment, double amount)` - 支払い処理と手数料を含めた総額の表示
+1. `Drawable` インターフェース:
+   * メソッド: `draw()`, `getArea()`
+2. `Colorable` インターフェース:
+   * メソッド: `setColor(String color)`, `getColor()`
+3. `Circle` クラス:
+   * 両方のインターフェースを実装
+   * フィールド: radius (半径), color
+4. `Rectangle` クラス:
+   * 両方のインターフェースを実装
+   * フィールド: width (幅), height (高さ), color
+5. `DrawingCanvas` クラス:
+   * 図形のリストを管理
+   * `addShape(Drawable shape)` と `drawAll()` メソッド
 
 ```java
 import java.util.ArrayList;
 import java.util.List;
 
-// ここにインターフェースとクラスを実装してください
+// ここに図形描画システムを実装してください
+
+```
+
+<details>
+
+<summary>ヒント</summary>
+
+* 円の面積: `Math.PI * radius * radius`
+* 長方形の面積: `width * height`
+* `DrawingCanvas` では `List<Drawable>` を使って図形を管理します
+* 色を変更できる図形は `Colorable` インターフェースでチェックしてから操作します
+
+</details>
+
+**問題 5-5: eコマースシステム**
+
+オンラインショップの商品と決済システムを作成してください。
+
+1. `Purchasable` インターフェース:
+   * メソッド: `getPrice()`, `getName()`, `isAvailable()`
+2. `Shippable` インターフェース:
+   * メソッド: `calculateShippingCost()`, `getWeight()`
+3. `PhysicalProduct` クラス:
+   * 両方のインターフェースを実装
+   * フィールド: name, price, stock, weight
+4. `DigitalProduct` クラス:
+   * `Purchasable` インターフェースのみ実装
+   * フィールド: name, price, downloadSize
+5. `ShoppingCart` クラス:
+   * 商品のリストを管理
+   * `addProduct(Purchasable product)`, `calculateTotal()`, `calculateShipping()` メソッド
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+// ここにeコマースシステムを実装してください
 
 ```
 
@@ -496,13 +594,19 @@ import java.util.List;
 <summary>使用例</summary>
 
 ```java
-public class PaymentDemo {
+public class ECommerceDemo {
     public static void main(String[] args) {
-        PaymentSystem system = new PaymentSystem();
+        ShoppingCart cart = new ShoppingCart();
         
-        system.processOrder(new CreditCardPayment("1234-****-****-5678"), 10000);
-        system.processOrder(new BankTransferPayment("みずほ銀行"), 5000);
-        system.processOrder(new DigitalWalletPayment("PayPay"), 3000);
+        // 異なる種類の商品をカートに追加
+        cart.addProduct(new PhysicalProduct("ノートパソコン", 80000, 10, 2.5));
+        cart.addProduct(new DigitalProduct("画像編集ソフト", 15000, 500));
+        cart.addProduct(new PhysicalProduct("マウス", 3000, 20, 0.2));
+        
+        // 合計金額と送料を計算
+        System.out.println("商品合計: " + cart.calculateTotal() + "円");
+        System.out.println("送料: " + cart.calculateShipping() + "円");
+        System.out.println("総合計: " + (cart.calculateTotal() + cart.calculateShipping()) + "円");
     }
 }
 ```
@@ -513,8 +617,9 @@ public class PaymentDemo {
 
 <summary>ヒント</summary>
 
-* 手数料計算は各決済方法で異なります
-* PaymentSystemクラスでは、決済処理→手数料計算→総額表示の流れを実装
-* 実際の決済処理はシミュレートで構いません
+* 物理商品は在庫管理と重量による送料計算が必要です
+* デジタル商品は送料不要で、ダウンロードサイズの情報を持ちます
+* `ShoppingCart` では商品の種類に関係なく価格計算し、配送可能な商品のみ送料を計算します
+* `instanceof` を使って商品の種類を判定できます
 
 </details>
