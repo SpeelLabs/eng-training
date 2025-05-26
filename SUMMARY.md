@@ -31,6 +31,9 @@
   * [3. カプセル化](java-oop/day-02/3-kapuseru.md)
 * [Day 03](java-oop/day-03/README.md)
   * [4. 抽象クラス](java-oop/day-03/04-abstract-class.md)
+* [Day 04](java-oop/day-04/README.md)
+  * [5. インターフェース](java-oop/day-04/5-intfsu.md)
+  * [6. 例外処理](java-oop/day-04/6.-li-wai-chu-li.md)
 
 ## Java
 
