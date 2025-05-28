@@ -214,7 +214,7 @@ public class Student {
 ```java
 public class Person {
     private String name;
-    private int age;
+    private int age;t
     
     // コンストラクター
     public Person( String name, int age ) {
