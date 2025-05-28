@@ -3,6 +3,35 @@
 * [Welcome](README.md)
 * [Draft](draft.md)
 
+## DATABASE
+
+* [Day 01](database/day-01/README.md)
+  * [1. データベース入門](database/day-01/1-dtabsu.md)
+  * [2. データベース環境構築と接続](database/day-01/2-dtabsuto.md)
+  * [3. テーブル作成とデータ操作](database/day-01/03-table-and-data-manipulation.md)
+  * [4. 基本的なデータ検索](database/day-01/04-data-retrieval.md)
+* [Day 02](database/day-02/README.md)
+  * [5. 検索結果の整形](database/day-02/05-formatting-query-results.md)
+  * [6. データの集計](database/day-02/06-data-aggregation.md)
+* [Day 03](database/day-03/README.md)
+  * [7. テーブルの作成と制約](database/day-03/07-tables-and-constraints.md)
+  * [8. テーブルの結合](database/day-03/08-join.md)
+* [Day 04](database/day-04/README.md)
+  * [9. サブクエリー](database/day-04/09-subquery.md)
+* [Day 05](database/day-05/README.md)
+  * [1. MySQL 接続環境の構築](database/day-05/1-mysql-no.md)
+  * [2. JDBCによるデータ取得](database/day-05/2-jdbcniyorudta.md)
+  * [3. PreparedStatement](database/day-05/3.-preparedstatement.md)
+  * [4. 条件検索とJOIN](database/day-05/4-tojoin.md)
+* [SQLチートシート](database/sqlchtoshto.md)
+* [よくあるエラーと対処法](database/yokuaruerto.md)
+* [draft](database/draft/README.md)
+  * [実践問題 ①](database/draft/database-exercises-01.md)
+  * [実践問題 ②](database/draft/database-exercises-02.md)
+* [archive](database/archive/README.md)
+  * [5. 検索結果の整形](database/archive/05-formatting-query-results.md)
+  * [6. データの集計](database/archive/06-data-aggregation.md)
+
 ## Servlet
 
 * [Day 01](servlet/day-01/README.md)
@@ -75,30 +104,6 @@
   * [9. 一般的なレイアウトパターン](html-and-css/day02/9-nareiautopatn.md)
 * [プロフィールサイト制作ガイド](html-and-css/purofrusaitogaido.md)
 * [Git と PowerShell のインストール](html-and-css/setup.md)
-
-## DATABASE
-
-* [Day 01](database/day-01/README.md)
-  * [1. データベース入門](database/day-01/1-dtabsu.md)
-  * [2. データベース環境構築と接続](database/day-01/2-dtabsuto.md)
-  * [3. テーブル作成とデータ操作](database/day-01/03-table-and-data-manipulation.md)
-  * [4. 基本的なデータ検索](database/day-01/04-data-retrieval.md)
-* [Day 02](database/day-02/README.md)
-  * [5. 検索結果の整形](database/day-02/05-formatting-query-results.md)
-  * [6. データの集計](database/day-02/06-data-aggregation.md)
-* [Day 03](database/day-03/README.md)
-  * [7. テーブルの作成と制約](database/day-03/07-tables-and-constraints.md)
-  * [8. テーブルの結合](database/day-03/08-join.md)
-* [Day 04](database/day-04/README.md)
-  * [9. サブクエリー](database/day-04/09-subquery.md)
-* [SQLチートシート](database/sqlchtoshto.md)
-* [よくあるエラーと対処法](database/yokuaruerto.md)
-* [draft](database/draft/README.md)
-  * [実践問題 ①](database/draft/database-exercises-01.md)
-  * [実践問題 ②](database/draft/database-exercises-02.md)
-* [archive](database/archive/README.md)
-  * [5. 検索結果の整形](database/archive/05-formatting-query-results.md)
-  * [6. データの集計](database/archive/06-data-aggregation.md)
 
 ## Algorithm
 
