@@ -3,6 +3,29 @@
 * [Welcome](README.md)
 * [Draft](draft.md)
 
+## Servlet
+
+* [Day 01](servlet/day-01/README.md)
+  * [1. プロジェクト構成と開発の準備](servlet/day-01/1-purojekutotono.md)
+  * [2. 最初のサーブレット作成](servlet/day-01/2-nosburetto.md)
+  * [3. アプリケーションの設定と実行](servlet/day-01/3-apurikshonnoto.md)
+  * [4. パラメーターを受け取るサーブレット](servlet/day-01/4-paramtwokerusburetto.md)
+* [Day 02](servlet/day-02/README.md)
+  * [1. 初めての JSP ページ作成](servlet/day-02/1-meteno-jsp-pji.md)
+  * [2. ブログ投稿フォームの作成](servlet/day-02/2-burogufmuno.md)
+  * [3. フォームデータを処理するサーブレット](servlet/day-02/3-fmudtawosurusburetto.md)
+* [Day 03](servlet/day-03/README.md)
+  * [4. 投稿保存と一覧表示機能の実装](servlet/day-03/4-tono.md)
+  * [5. 投稿フォームと一覧表示の連携](servlet/day-03/5-fmutono.md)
+  * [6. スタイルとレイアウトの適用](servlet/day-03/6-sutairutoreiautono.md)
+* [Day 04](servlet/day-04/README.md)
+  * [1. 投稿データのモデルクラス作成](servlet/day-04/1-dtanomoderukurasu.md)
+  * [2. アプリケーションスコープによる投稿データの管理](servlet/day-04/2-apurikshonsukpuniyorudtano.md)
+  * [3. 投稿一覧表示機能の強化](servlet/day-04/3-no.md)
+  * [4. 投稿詳細表示ページの実装](servlet/day-04/4-pjino.md)
+  * [5. 新規投稿機能の完成](servlet/day-04/5-no.md)
+  * [6. アプリケーションの外観改善](servlet/day-04/6-apurikshonno.md)
+
 ## DATABASE
 
 * [Day 01](database/day-01/README.md)
@@ -31,22 +54,6 @@
 * [archive](database/archive/README.md)
   * [5. 検索結果の整形](database/archive/05-formatting-query-results.md)
   * [6. データの集計](database/archive/06-data-aggregation.md)
-
-## Servlet
-
-* [Day 01](servlet/day-01/README.md)
-  * [1. プロジェクト構成と開発の準備](servlet/day-01/1-purojekutotono.md)
-  * [2. 最初のサーブレット作成](servlet/day-01/2-nosburetto.md)
-  * [3. アプリケーションの設定と実行](servlet/day-01/3-apurikshonnoto.md)
-  * [4. パラメーターを受け取るサーブレット](servlet/day-01/4-paramtwokerusburetto.md)
-* [Day 02](servlet/day-02/README.md)
-  * [1. 初めての JSP ページ作成](servlet/day-02/1-meteno-jsp-pji.md)
-  * [2. ブログ投稿フォームの作成](servlet/day-02/2-burogufmuno.md)
-  * [3. フォームデータを処理するサーブレット](servlet/day-02/3-fmudtawosurusburetto.md)
-* [Day 03](servlet/day-03/README.md)
-  * [4. 投稿保存と一覧表示機能の実装](servlet/day-03/4-tono.md)
-  * [5. 投稿フォームと一覧表示の連携](servlet/day-03/5-fmutono.md)
-  * [6. スタイルとレイアウトの適用](servlet/day-03/6-sutairutoreiautono.md)
 
 ## Java OOP
 

@@ -10,11 +10,12 @@ JSP (JavaServer Pages) は、HTML コードの中に Java コードを埋め込�
 
 #### JSP ファイルを作成する
 
-まず、JSP ファイルを格納するディレクトリを作成します。`src/main/webapp/jsp` フォルダを作成し、その中に `hello.jsp` ファイルを作成します。
+まず、JSP ファイルを格納するディレクトリを作成します。`src/main/webapp/jsp` ディレクトリーを作成し、その中に `hello.jsp` ファイルを作成します。
 
-{% code overflow="wrap" %}
 ```html
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="java.time.LocalDateTime" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,17 +28,17 @@ JSP (JavaServer Pages) は、HTML コードの中に Java コードを埋め込�
 </body>
 </html>
 ```
-{% endcode %}
 
-> 📝 **ポイント**: JSP ファイルの先頭に記述されている `<%@ page ... %>` はページディレクティブと呼ばれ、JSP ページの基本設定を行います。ここでは、言語として 「java」 、コンテンツタイプとして 「text/html」 、文字エンコーディングとして 「UTF-8」 を指定しています。
+> 📝 **ポイント**: JSP ファイルの先頭に記述されている `<%@ page ... %>` はページディレクティブと呼ばれ、JSP ページの基本設定を行います。ここでは、言語として 「java」 、コンテンツタイプとして 「text/html」 、文字エンコーディングとして 「UTF-8」 を指定しています。また、LocalDateTimeを使用するために必要なインポート文も追加しています。
 
 #### 動的な要素を追加する
 
 次に、現在の日時を表示する動的な要素を JSP に追加します。`hello.jsp` を以下のように修正します。
 
-{% code overflow="wrap" %}
 ```html
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="java.time.LocalDateTime" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,13 +48,16 @@ JSP (JavaServer Pages) は、HTML コードの中に Java コードを埋め込�
 <body>
     <h1>Hello from JSP!</h1>
     <p>これは最初のJSPページです。</p>
-    <p>現在の時刻: <%= new java.util.Date() %></p>
+    <%
+    LocalDateTime now = LocalDateTime.now();
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy年MM月dd日 HH:mm:ss");
+    %>
+    <p>現在の時刻: <%= now.format(formatter) %></p>
 </body>
 </html>
 ```
-{% endcode %}
 
-> 📝 **ポイント**: `<%= ... %>` は式 (Expression) タグと呼ばれ、Java の式を評価してその結果を HTML 内に出力します。ここでは、現在の日時 ( `new java.util.Date()` ) が表示されます。
+> 📝 **ポイント**: `<%= ... %>` は式 (Expression) タグと呼ばれ、Java の式を評価してその結果を HTML 内に出力します。ここでは、現在の日時 ( `LocalDateTime.now()` ) をフォーマットして表示しています。LocalDateTimeはJava 8以降で推奨される日時処理クラスで、従来のDateクラスよりも直感的で安全な日時操作が可能です。
 
 ### 1.3 JSP の主要な構文要素
 
@@ -61,11 +65,10 @@ JSP では、以下の特殊なタグを使って Java コードを埋め込む�
 
 #### ディレクティブ: `<%@ ... %>`
 
-{% code overflow="wrap" %}
 ```html
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="java.time.LocalDateTime" %>
 ```
-{% endcode %}
 
 ページの設定を指定します。インポートするクラスや文字コードなどを設定できます。
 
@@ -92,7 +95,7 @@ Java コードを直接記述します。変数の宣言や条件分岐など、
 
 #### 式: `<%= ... %>`
 
-```jsp
+```html
 <%= name %>
 ```
 
@@ -104,9 +107,10 @@ JSP でもサーブレットと同様に、クエリーパラメーターを受�
 
 `src/main/webapp/jsp` フォルダに `greeting.jsp` ファイルを作成します。
 
-{% code overflow="wrap" %}
 ```html
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="java.time.LocalDateTime" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -119,16 +123,19 @@ JSP でもサーブレットと同様に、クエリーパラメーターを受�
     if (name == null || name.isEmpty()) {
         name = "Guest";
     }
+    
+    LocalDateTime now = LocalDateTime.now();
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
     %>
     <h1>こんにちは、<%= name %>さん！</h1>
     <p>JSPからの挨拶です。</p>
+    <p>現在時刻: <%= now.format(formatter) %></p>
     <p><a href="<%= request.getContextPath() %>/hello">Servletのサンプルへ</a></p>
 </body>
 </html>
 ```
-{% endcode %}
 
-> 📝 **ポイント**: サーブレットと同様に、`request.getParameter("name")` を使用してクエリーパラメーターを取得できます。また、`request.getContextPath()` を使用すると、アプリケーションのコンテキストパス (例: `/blog-app` ) を取得できます。これにより、アプリケーションがどのコンテキストにデプロイされても正しくリンクが機能します。
+> 📝 **ポイント**: サーブレットと同様に、`request.getParameter("name")` を使用して クエリーパラメーターを取得できます。また、`request.getContextPath()` を使用すると、アプリケーションのコンテキストパス (例: `/blog-app` ) を取得できます。これにより、アプリケーションがどのコンテキストにデプロイされても正しくリンクが機能します。
 
 ### 1.5 JSP の動作確認
 
@@ -138,11 +145,9 @@ JSP でもサーブレットと同様に、クエリーパラメーターを受�
 
 以下の URL でアクセスします。
 
-{% code overflow="wrap" %}
-```html
+```
 http://localhost:8080/blog-app/jsp/hello.jsp
 ```
-{% endcode %}
 
 「Hello from JSP!」 というメッセージと現在の日時が表示されるはずです。
 
@@ -150,11 +155,9 @@ http://localhost:8080/blog-app/jsp/hello.jsp
 
 以下の URL でアクセスします。
 
-{% code overflow="wrap" %}
-```html
+```
 http://localhost:8080/blog-app/jsp/greeting.jsp?name=田中
 ```
-{% endcode %}
 
 「こんにちは、田中さん！」 というメッセージが表示されるはずです。パラメーターーを指定しない場合は、「こんにちは、Guestさん！」 と表示されます。
 

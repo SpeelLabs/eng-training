@@ -8,22 +8,23 @@
 
 ### 6.2 共通ヘッダーとフッターを作成する
 
-#### 共通ファイル用のディレクトリ作成
+#### 共通ディレクトリの作成
 
 まず、共通のヘッダーとフッターを格納するディレクトリを作成します。`src/main/webapp/jsp/common` ディレクトリを作成します。
 
 #### 共通ヘッダーファイルの作成
 
-`header.jsp` ファイルを作成し、以下のコードを入力します。
+`src/main/webapp/jsp/common` ディレクトリーに、`header.jsp` ファイルを作成し、以下のコードを入力します。
 
-{% code overflow="wrap" %}
 ```html
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="java.time.Year" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>${param.pageTitle != null ? param.pageTitle : 'ブログアプリ'}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -73,6 +74,16 @@
             margin-top: 0;
             color: #444;
         }
+        .post-date {
+            color: #777;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+        .post-count {
+            font-size: 0.8em;
+            color: #777;
+            font-weight: normal;
+        }
         .button {
             display: inline-block;
             background-color: #4CAF50;
@@ -112,6 +123,30 @@
             resize: vertical;
             min-height: 100px;
         }
+        .no-posts {
+            color: #666;
+            font-style: italic;
+        }
+        a {
+            color: #337ab7;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        /* 基本的なモバイル対応 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            .nav a {
+                margin: 0 5px;
+            }
+            .post {
+                padding: 10px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -124,108 +159,34 @@
     </div>
     <div class="container">
 ```
-{% endcode %}
 
-> 📝 **ポイント**: ヘッダーファイルには、HTML の開始部分とナビゲーション、そして共通のスタイル定義が含まれています。`${param.pageTitle}` を使用すると、インクルード時にパラメーターとしてページタイトルを指定でき、各ページでタイトルをカスタマイズできます。
+> 📝 **ポイント**: ヘッダーファイルには、HTML の開始部分とナビゲーション、そして共通のスタイル定義が含まれています。`${param.pageTitle}` を使用すると、インクルード時にパラメーターとしてページタイトルを指定でき、各ページでタイトルをカスタマイズできます。また、モバイル対応のためのビューポート設定も含めています。
 
 #### 共通フッターファイルの作成
 
-`footer.jsp` ファイルを作成し、以下のコードを入力します。
+同様に `footer.jsp` ファイルを作成し、以下のコードを入力します。
 
-{% code overflow="wrap" %}
 ```html
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="java.time.Year" %>
     </div>
     <div style="text-align: center; padding: 20px; font-size: 12px; color: #777;">
-        <p>&copy; <%= new java.util.Date().getYear() + 1900 %> シンプルブログアプリ - Servlet実践演習</p>
+        <p>&copy; <%= Year.now().getValue() %> シンプルブログアプリ - Servlet実践演習</p>
     </div>
 </body>
 </html>
 ```
-{% endcode %}
 
-> 📝 **ポイント**: フッターファイルには、コンテナの終了タグとフッター要素、そして HTML の終了タグが含まれています。また、現在の年を動的に表示しています。
+> 📝 **ポイント**: フッターファイルには、コンテナの終了タグとフッター要素、そして HTML の終了タグが含まれています。また、LocalDateTimeに対応してYear.now().getValue()を使って現在の年を動的に表示しています。
 
 ### 6.3 投稿フォームページを共通レイアウトに対応させる
 
 次に、既存の `postForm.jsp` を修正して、共通のヘッダーとフッターを使用するようにします。修正のステップは以下の通りです。
 
-#### 1. 既存の HTML ヘッダー部分を削除する
+#### 共通のヘッダーを使用する
 
-以下の部分を削除します。
+ファイルの先頭部分にある既存の HTML ヘッダー部分を削除し、共通ヘッダーをインクルードします。
 
-{% code overflow="wrap" %}
-```html
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>新規投稿</title>
-    <style>
-        /* スタイル定義 */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        /* 以下省略... */
-    </style>
-</head>
-<body>
-```
-{% endcode %}
-
-#### 2. 共通ヘッダーのインクルードを追加する
-
-ファイルの先頭に以下のコードを追加します。
-
-{% code overflow="wrap" %}
-```html
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<jsp:include page="/jsp/common/header.jsp">
-    <jsp:param name="pageTitle" value="新規投稿" />
-</jsp:include>
-```
-{% endcode %}
-
-#### 3. HTML フッター部分を削除する
-
-ファイルの末尾にある以下の部分を削除します。
-
-```html
-</body>
-</html>
-```
-
-#### 4. 共通フッターのインクルードを追加する
-
-ファイルの末尾に以下のコードを追加します。
-
-{% code overflow="wrap" %}
-```html
-<jsp:include page="/jsp/common/footer.jsp" />
-```
-{% endcode %}
-
-#### 5. フォームのスタイルクラスを適用する
-
-送信ボタンを共通スタイルに合わせて以下のように修正します。
-
-{% code overflow="wrap" %}
-```html
-<!-- 修正前 -->
-<button type="submit">投稿</button>
-
-<!-- 修正後 -->
-<button type="submit" class="button">投稿</button>
-```
-{% endcode %}
-
-#### 6. 完成した postForm.jsp
-
-修正後の完成版 `postForm.jsp` は以下のようになります。
-
-{% code overflow="wrap" %}
 ```html
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <jsp:include page="/jsp/common/header.jsp">
@@ -248,39 +209,52 @@
     </div>
 </form>
 
+<div style="margin-top: 20px;">
+    <a href="<%= request.getContextPath() %>/posts" class="button button-secondary">
+        投稿一覧に戻る
+    </a>
+</div>
+
 <jsp:include page="/jsp/common/footer.jsp" />
 ```
-{% endcode %}
 
-> 📝 **ポイント**: 共通ヘッダーとフッターを使用することで、スタイル定義の重複がなくなり、一貫したデザインが適用されます。元々定義していたスタイルはすべて共通ヘッダーに含まれているため、削除しても問題ありません。
+> 📝 **ポイント**: 共通ヘッダーとフッターを使用することで、スタイル定義の重複がなくなり、一貫したデザインが適用されます。元々定義していたスタイルはすべて共通ヘッダーに含まれているため、削除しても問題ありません。ボタンも共通のCSSクラスを使用するように変更しています。
 
 ### 6.4 投稿一覧ページを共通レイアウトに対応させる
 
 同様に、`postList.jsp` も修正します。
 
-{% code overflow="wrap" %}
 ```html
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.time.LocalDateTime" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
 <jsp:include page="/jsp/common/header.jsp">
     <jsp:param name="pageTitle" value="投稿一覧" />
 </jsp:include>
 
-<h1>投稿一覧</h1>
+<h1>投稿一覧 <span class="post-count">(全${totalPosts}件)</span></h1>
 
 <a href="<%= request.getContextPath() %>/jsp/postForm.jsp" class="button">新規投稿</a>
 
 <div style="margin-top: 20px;">
 <% 
 List<String[]> posts = (List<String[]>) request.getAttribute("posts");
+DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy年MM月dd日 HH:mm");
 
 if (posts != null && !posts.isEmpty()) {
-    for (int i = posts.size() - 1; i >= 0; i--) {
-        String[] post = posts.get(i);
+    for (String[] post : posts) {
+        String title = post[0];
+        String content = post[1];
+        String dateTimeStr = post[2];
+        
+        // LocalDateTimeに変換してフォーマット
+        LocalDateTime dateTime = LocalDateTime.parse(dateTimeStr);
 %>
     <div class="post">
-        <h2><%= post[0] %></h2>
-        <p><%= post[1].replace("\n", "<br>") %></p>
+        <h2><%= title %></h2>
+        <p class="post-date">投稿日時: <%= dateTime.format(formatter) %></p>
+        <p><%= content.replace("\n", "<br>") %></p>
     </div>
 <% 
     }
@@ -292,39 +266,44 @@ if (posts != null && !posts.isEmpty()) {
 
 <jsp:include page="/jsp/common/footer.jsp" />
 ```
-{% endcode %}
 
-### 6.5 モバイル対応の基本設定
-
-現代の Web アプリケーションでは、様々な画面サイズのデバイスに対応することが重要です。基本的なモバイル対応の設定として、以下のメタタグを `header.jsp` の `<head>` セクション内に追加します。
-
-{% code overflow="wrap" %}
-```html
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-```
-{% endcode %}
-
-これにより、モバイルデバイスでページが適切に表示されるようになります。
-
-### 6.6 共通レイアウト使用の利点
+### 6.5 共通レイアウト使用の利点
 
 共通レイアウト要素を使用することで、以下のようなメリットがあります。
 
-1. **コードの重複削減**: 同じ HTML 構造や CSS を複数のファイルに記述する必要がなくなります。
-2. **メンテナンス性向上**: デザイン変更時に共通ファイルだけを修正すれば、すべてのページに反映されます。
-3. **一貫性の確保**: すべてのページで同じヘッダー、フッター、スタイルが使用されるため、アプリケーション全体で一貫した外観になります。
-4. **開発効率の向上**: 新しいページを作成する際に、共通部分を書く必要がなく、コンテンツ部分に集中できます。
+1. **コードの重複削減**:\
+   同じ HTML 構造や CSS を複数のファイルに記述する必要がなくなります。
+2. **メンテナンス性向上**:\
+   デザイン変更時に共通ファイルだけを修正すれば、すべてのページに反映されます。
+3. **一貫性の確保**:\
+   すべてのページで同じヘッダー、フッター、スタイルが使用されるため、アプリケーション全体で一貫した外観になります。
+4. **開発効率の向上**:\
+   新しいページを作成する際に、共通部分を書く必要がなく、コンテンツ部分に集中できます。
+5. **モバイル対応**:\
+   共通ヘッダーでメディアクエリを定義することで、アプリケーション全体でモバイル対応が統一されます。
 
-### 6.7 動作確認と次のステップ
+### 6.6 動作確認と次のステップ
 
 修正したアプリケーションの動作を確認します。
 
 1. プロジェクトをビルド： `mvn clean package`
 2. Tomcat サーバーを再起動
-3. ブラウザで投稿一覧ページにアクセス： `http://localhost:8080/blog-app/posts`
+3. ブラウザーで投稿一覧ページにアクセス： `http://localhost:8080/blog-app/posts`
 4. 共通ヘッダー、フッター、スタイルが適切に表示されていることを確認
-5. 異なる画面サイズでのレスポンシブ動作を確認
+5. ナビゲーションリンクが正しく機能することを確認
+6. 異なる画面サイズでのレスポンシブ動作を確認
+
+### 6.7 次のステップでの改善点
+
+モジュール3では、さらに以下の改善を行います：
+
+1. **外部CSSファイルの作成**:\
+   現在はヘッダー内にスタイルを記述していますが、外部CSSファイルに分離してより管理しやすくします。
+2. **より高度なレイアウト**:\
+   CSS Grid や Flexbox を使用したより柔軟なレイアウトを実装します。
+3. **JavaScript による動的機能**:\
+   フォームバリデーションやインタラクティブな要素を追加します。
 
 これでモジュール 2 の全セクションが完了しました。JSP、フォーム処理、データの表示、共通レイアウト要素の活用など、Web アプリケーション開発の基本的な要素を学びました。次のモジュール 3 では、Post クラスを導入してより構造化されたアプローチでアプリケーションを拡張していきます。
 
-> 📝 **ポイント**: 実際のプロジェクトでは、CSS をさらに外部ファイル (style.css) に分離するのが一般的です。これは次のモジュールで実装します。また、より大規模なアプリケーションでは、テンプレートエンジンや JSTL などの技術を使って、さらに洗練されたビュー層を構築することもあります。
+> 📝 **ポイント**: 実際のプロジェクトでは、CSS をさらに外部ファイル ( `style.css` ) に分離するのが一般的です。これは次のモジュールで実装します。また、より大規模なアプリケーションでは、テンプレートエンジンや JSTL などの技術を使って、さらに洗練されたビュー層を構築することもあります。

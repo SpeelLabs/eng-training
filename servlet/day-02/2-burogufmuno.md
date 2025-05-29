@@ -10,9 +10,8 @@ HTML フォームは、ユーザーから情報を収集するための重要な
 
 #### 基本的なフォームの構造
 
-まず、シンプルな HTML フォームを含むJSPファイルを作成します。`src/main/webapp/jsp` フォルダに `postForm.jsp` ファイルを作成します。
+まず、シンプルな HTML フォームを含む JSP ファイルを作成します。`src/main/webapp/jsp` フォルダに `postForm.jsp` ファイルを作成します。
 
-{% code overflow="wrap" %}
 ```html
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -39,12 +38,11 @@ HTML フォームは、ユーザーから情報を収集するための重要な
 </body>
 </html>
 ```
-{% endcode %}
 
 > 📝 **ポイント**: `form` タグの重要な属性:
 >
 > * `action` : フォームデータを送信する先の URL (サーブレットのパス)
-> * &#x20;`request.getContextPath()` を使用することで、アプリケーションのコンテキストパス (例: `/blog-app` ) を取得できます。これにより、フォームがどのディレクトリに置かれていても、正しいサーブレットにデータを送信できます。
+> * `request.getContextPath()` を使用することで、アプリケーションのコンテキストパス (例: `/blog-app` ) を取得できます。これにより、フォームがどのディレクトリに置かれていても、正しいサーブレットにデータを送信できます。
 > * `method` : HTTP メソッド (GET または POST) 。POST はデータを URL に表示せず、大量のデータを送信できます。
 > * 入力フィールドの `name` 属性は、サーバーでデータを取得する際のパラメーター名になります。
 
@@ -54,20 +52,16 @@ HTML フォームは、ユーザーから情報を収集するための重要な
 
 1.  **フォームタグ**:
 
-    {% code overflow="wrap" %}
     ```html
     <form action="<%= request.getContextPath() %>/createPost" method="post">
     ```
-    {% endcode %}
 
     フォームの範囲を定義し、データの送信先や送信方法を指定します。
 2.  **テキスト入力フィールド**:
 
-    {% code overflow="wrap" %}
     ```html
     <input type="text" id="title" name="title" required>
     ```
-    {% endcode %}
 
     一行のテキストを入力するためのフィールドです。
 
@@ -76,11 +70,9 @@ HTML フォームは、ユーザーから情報を収集するための重要な
     * `required` : 必須入力フィールドを示す
 3.  **テキストエリア**:
 
-    {% code overflow="wrap" %}
     ```html
     <textarea id="content" name="content" rows="5" cols="40" required></textarea>
     ```
-    {% endcode %}
 
     複数行のテキストを入力するためのフィールドです。
 
@@ -88,11 +80,9 @@ HTML フォームは、ユーザーから情報を収集するための重要な
     * `cols` : 表示する列数 (文字数)
 4.  **送信ボタン**:
 
-    {% code overflow="wrap" %}
     ```html
     <button type="submit">投稿</button>
     ```
-    {% endcode %}
 
     フォームデータを送信するためのボタンです。
 
@@ -100,7 +90,6 @@ HTML フォームは、ユーザーから情報を収集するための重要な
 
 基本的なフォームができたら、次に CSS を使ってフォームの見た目を改善します。`postForm.jsp` の `<head>` セクション内に次のスタイルを追加します。
 
-{% code overflow="wrap" %}
 ```html
 <style>
     body {
@@ -142,7 +131,6 @@ HTML フォームは、ユーザーから情報を収集するための重要な
     }
 </style>
 ```
-{% endcode %}
 
 > 📝 **ポイント**: CSS を使用することで、フォームの見た目や使いやすさを大幅に改善できます。ここでは、フォント、色、サイズ、マージン、パディングなどを調整して、より洗練された外観にしています。モジュール 3 では、これらのスタイルを外部 CSS ファイルに移動します。
 
@@ -150,7 +138,6 @@ HTML フォームは、ユーザーから情報を収集するための重要な
 
 スタイルを適用した完成版の `postForm.jsp` ファイルは次のようになります。
 
-{% code overflow="wrap" %}
 ```html
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -216,18 +203,15 @@ HTML フォームは、ユーザーから情報を収集するための重要な
 </body>
 </html>
 ```
-{% endcode %}
 
 ### 2.5 フォームのアクセスと動作確認
 
 作成したフォームページにアクセスするには、以下の URL を使用します。
 
-{% code overflow="wrap" %}
-```html
+```
 http://localhost:8080/blog-app/jsp/postForm.jsp
 ```
-{% endcode %}
 
-ブラウザでこの URL にアクセスすると、タイトルと内容を入力するための整形されたフォームが表示されます。
+ブラウザーでこの URL にアクセスすると、タイトルと内容を入力するための整形されたフォームが表示されます。
 
 > 📝 **ポイント**: 現時点では、フォームの送信先である `createPost` サーブレットはまだ実装していないため、フォームを送信するとエラーが発生します。次のセクションでこのサーブレットを作成します。また、URL パスが相対パスで指定されているため、現在のページの場所に依存します。後のセクションで絶対パスを使用するように改善します。
