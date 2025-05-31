@@ -166,8 +166,8 @@ MySQL Connector/J を使用するために、pom.xmlを編集します。
     <dependencies>
         <!-- MySQL Connector/J -->
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
             <version>8.4.0</version>
         </dependency>
     </dependencies>

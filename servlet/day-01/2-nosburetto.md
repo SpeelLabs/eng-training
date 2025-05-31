@@ -55,7 +55,7 @@ public class HelloServlet extends HttpServlet {
     @WebServlet("/hello")
     ```
 
-    このアノテーションは、このサーブレットが `/hello` という URL パスに対応することを指定します。つまり、`http://localhost:8080/memo-app/hello` にアクセスすると、このサーブレットが実行されます。
+    このアノテーションは、このサーブレットが `/hello` という URL パスに対応することを指定します。つまり、`http://localhost:8080/blog-app/hello` にアクセスすると、このサーブレットが実行されます。
 2.  **HttpServlet クラスの継承**:
 
     ```java
