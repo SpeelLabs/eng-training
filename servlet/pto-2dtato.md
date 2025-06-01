@@ -11,13 +11,7 @@ description: >-
 
 このパートを終了すると、以下のことができるようになります。
 
-| 技術スキル        | 説明                             |
-| ------------ | ------------------------------ |
-| データベース連携     | JDBC を使用した MySQL データベースとの接続と操作 |
-| DAO パターン実装   | データアクセス層の適切な分離と実装              |
-| CRUD 操作の完全実装 | 作成・読取・更新・削除の全機能実装              |
-| トランザクション処理   | データベース操作の整合性確保                 |
-| 検索機能とページング   | 効率的なデータ検索と表示                   |
+<table><thead><tr><th width="199.9090576171875">技術スキル</th><th>説明</th></tr></thead><tbody><tr><td>データベース連携</td><td>JDBC を使用した MySQL データベースとの接続と操作</td></tr><tr><td>DAO パターン実装</td><td>データアクセス層の適切な分離と実装</td></tr><tr><td>CRUD 操作の完全実装</td><td>作成・読取・更新・削除の全機能実装</td></tr><tr><td>トランザクション処理</td><td>データベース操作の整合性確保</td></tr><tr><td>検索機能とページング</td><td>効率的なデータ検索と表示</td></tr></tbody></table>
 
 ### 基本モジュール構成
 
@@ -35,25 +29,23 @@ description: >-
 
 * DAO（Data Access Object）パターンの実装
 * 投稿データの CRUD 操作完全実装
-* データベース接続の管理
+* Service レイヤーの導入
 * トランザクション処理の基礎
-* エラーハンドリング
+* エラーハンドリングとログ出力
 
 #### モジュール 6: コメントと検索機能
 
 * コメント機能の実装
 * 投稿検索機能の実装
 * ページング処理による大量データ対応
-* パフォーマンス最適化の基礎
+* カテゴリ機能の追加
+* パフォーマンス最適化
 
-### 発展モジュール
+### ~~発展モジュール~~
 
-パート 2 の基本を習得した後、以下の発展モジュールに取り組むことができます。
+~~パート 2 の基本を習得した後、以下の発展モジュールに取り組むことができます。~~
 
-| 発展モジュール           | 主な学習内容                                                                                |
-| ----------------- | ------------------------------------------------------------------------------------- |
-| **2-A: 高度なデータ管理** | • 複数テーブルの関連管理\<br>• JOIN を使用した複雑なクエリ\<br>• インデックスとパフォーマンス最適化\<br>• データベース設計のベストプラクティス |
-| **2-B: セキュリティ強化** | • SQL インジェクション対策の詳細\<br>• 入力値検証の強化\<br>• CSRF 対策の実装\<br>• セッション管理のセキュリティ              |
+<table><thead><tr><th width="198.0909423828125">発展モジュール</th><th>主な学習内容</th></tr></thead><tbody><tr><td><strong>2-A: 高度なデータ管理</strong></td><td>• 複数テーブルの関連管理&#x3C;br>• JOIN を使用した複雑なクエリ&#x3C;br>• インデックスとパフォーマンス最適化&#x3C;br>• データベース設計のベストプラクティス</td></tr><tr><td><strong>2-B: セキュリティ強化</strong></td><td>• SQL インジェクション対策の詳細&#x3C;br>• 入力値検証の強化&#x3C;br>• CSRF 対策の実装&#x3C;br>• セッション管理のセキュリティ</td></tr></tbody></table>
 
 ### 開発の流れ
 
@@ -64,7 +56,7 @@ description: >-
 [パート1アプリ] → [MySQL DB設計] → [JDBC接続] → [基本CRUD] → [永続化対応]
 
 モジュール 5  
-[基本CRUD] → [DAO層分離] → [投稿管理機能] → [編集・削除] → [エラー処理]
+[基本CRUD] → [DAO層分離] → [Service層追加] → [トランザクション] → [エラー処理]
 
 モジュール 6
 [基本機能] → [コメント機能] → [検索機能] → [ページング] → [最適化]
@@ -82,10 +74,18 @@ blog-app/
 │       │   └── com/example/blog/
 │       │       ├── model/
 │       │       │   ├── Post.java
-│       │       │   └── Comment.java
+│       │       │   ├── Comment.java
+│       │       │   ├── Category.java
+│       │       │   └── SearchCriteria.java
 │       │       ├── dao/
 │       │       │   ├── PostDAO.java
-│       │       │   └── CommentDAO.java
+│       │       │   ├── CommentDAO.java
+│       │       │   ├── CategoryDAO.java
+│       │       │   └── BaseDAO.java
+│       │       ├── service/
+│       │       │   ├── PostService.java
+│       │       │   ├── CommentService.java
+│       │       │   └── CategoryService.java
 │       │       ├── servlet/
 │       │       │   ├── post/
 │       │       │   │   ├── PostListServlet.java
@@ -94,23 +94,31 @@ blog-app/
 │       │       │   │   ├── PostEditServlet.java
 │       │       │   │   ├── PostUpdateServlet.java
 │       │       │   │   └── PostDeleteServlet.java
-│       │       │   └── comment/
-│       │       │       ├── CommentAddServlet.java
-│       │       │       └── CommentDeleteServlet.java
+│       │       │   ├── comment/
+│       │       │   │   ├── CommentAddServlet.java
+│       │       │   │   └── CommentDeleteServlet.java
+│       │       │   └── search/
+│       │       │       └── SearchServlet.java
 │       │       └── util/
 │       │           ├── DatabaseUtil.java
-│       │           └── ValidationUtil.java
+│       │           ├── ValidationUtil.java
+│       │           └── Constants.java
+│       ├── resources/
+│       │   └── database.properties
 │       └── webapp/
 │           ├── WEB-INF/
 │           │   └── web.xml
 │           ├── css/
 │           │   └── style.css
+│           ├── js/
+│           │   └── main.js
 │           └── jsp/
 │               ├── post/
 │               │   ├── list.jsp
 │               │   ├── create.jsp
 │               │   ├── detail.jsp
-│               │   └── edit.jsp
+│               │   ├── edit.jsp
+│               │   └── search.jsp
 │               ├── comment/
 │               │   └── form.jsp
 │               └── common/
@@ -119,21 +127,17 @@ blog-app/
 │                   └── error.jsp
 ├── pom.xml
 └── database/
-    └── schema.sql
+    ├── schema.sql
+    ├── sample_data.sql
+    └── migration/
+        └── v1_initial_schema.sql
 ```
 
 ### パート 2 での成果物
 
 パート 2 を終了すると、以下の機能を持つ本格的なブログアプリケーションが完成します。
 
-| 機能カテゴリ         | 詳細機能                                                               |
-| -------------- | ------------------------------------------------------------------ |
-| **データ永続化**     | • MySQL データベースによるデータ保存\<br>• CRUD 操作の完全実装\<br>• トランザクション処理による整合性確保 |
-| **投稿管理**       | • 投稿の作成・編集・削除\<br>• カテゴリ別分類\<br>• 投稿日時の自動管理                        |
-| **コメント機能**     | • 投稿へのコメント追加\<br>• コメントの表示と削除\<br>• コメント数の表示                       |
-| **検索とフィルタリング** | • キーワード検索\<br>• 日付範囲での絞り込み\<br>• 基本的な検索条件指定                        |
-| **ページング**      | • 大量データの効率的表示\<br>• ページネーション\<br>• 表示件数の設定                         |
-| **アーキテクチャ**    | • DAO パターンによるデータアクセス層分離\<br>• 適切なエラーハンドリング\<br>• シンプルで保守しやすい構造     |
+<table><thead><tr><th width="199.90911865234375">機能カテゴリ</th><th>詳細機能</th></tr></thead><tbody><tr><td><strong>データ永続化</strong></td><td>• MySQL データベースによるデータ保存&#x3C;br>• CRUD 操作の完全実装&#x3C;br>• トランザクション処理による整合性確保</td></tr><tr><td><strong>投稿管理</strong></td><td>• 投稿の作成・編集・削除&#x3C;br>• カテゴリ別分類&#x3C;br>• 投稿日時の自動管理</td></tr><tr><td><strong>コメント機能</strong></td><td>• 投稿へのコメント追加&#x3C;br>• コメントの表示と削除&#x3C;br>• コメント数の表示</td></tr><tr><td><strong>検索とフィルタリング</strong></td><td>• キーワード検索&#x3C;br>• カテゴリ別フィルタリング&#x3C;br>• 日付範囲での絞り込み</td></tr><tr><td><strong>ページング</strong></td><td>• 大量データの効率的表示&#x3C;br>• ページネーション&#x3C;br>• 表示件数の設定</td></tr><tr><td><strong>アーキテクチャ</strong></td><td>• DAO パターンによるデータアクセス層分離&#x3C;br>• Service レイヤーによるビジネスロジック分離&#x3C;br>• 適切なエラーハンドリング</td></tr></tbody></table>
 
 ### 学習ポイント
 
@@ -145,20 +149,22 @@ blog-app/
 
 * `posts`: 投稿データ
 * `comments`: コメントデータ
+* `categories`: カテゴリデータ
 
 **設計原則**:
 
 * 正規化による重複データの排除
 * 適切な主キーと外部キーの設定
-* 基本的なインデックス設計
+* インデックスによるパフォーマンス最適化
 
-#### DAO パターンとシンプルなアーキテクチャ
+#### DAO パターンとレイヤードアーキテクチャ
 
-| レイヤー                   | 役割           | 実装例                 |
-| ---------------------- | ------------ | ------------------- |
-| **Presentation Layer** | ユーザーインターフェース | Servlet, JSP        |
-| **Data Access Layer**  | データアクセス      | PostDAO, CommentDAO |
-| **Model Layer**        | データ表現        | Post, Comment       |
+| レイヤー                   | 役割           | 実装例                         |
+| ---------------------- | ------------ | --------------------------- |
+| **Presentation Layer** | ユーザーインターフェース | Servlet, JSP                |
+| **Service Layer**      | ビジネスロジック     | PostService, CommentService |
+| **Data Access Layer**  | データアクセス      | PostDAO, CommentDAO         |
+| **Model Layer**        | データ表現        | Post, Comment, Category     |
 
 #### JDBC と SQL の実践的活用
 
@@ -167,11 +173,11 @@ blog-app/
 * **トランザクション**: データ整合性の確保
 * **エラーハンドリング**: SQLException の適切な処理
 
-#### パフォーマンス最適化の基礎
+#### パフォーマンス最適化
 
 * **ページング**: `LIMIT` と `OFFSET` を使用した効率的データ取得
-* **基本的なインデックス**: 検索性能の向上
-* **効率的なSQL**: 必要なデータのみを取得
+* **インデックス**: 検索性能の向上
+* **N+1 問題**: 効率的な関連データ取得
 * **コネクション管理**: リソース使用量の最適化
 
 ### 次のステップ
@@ -186,7 +192,7 @@ blog-app/
 
 パート 2 を開始する前に、以下の環境が準備されていることを確認してください：
 
-* **MySQL 8.0+**: データベースサーバー
+* **MySQL 8.4**: データベースサーバー
 * **MySQL Connector/J**: JDBC ドライバー
 * **パート 1 の完成**: 基本的な Servlet/JSP アプリケーション
 
