@@ -116,7 +116,7 @@ while (rs.next()) {
 // List<Post> sortedPosts = posts.stream()...
 
 // 新しい実装
-List<Post> posts = getPostsFromDatabase();
+List<Post> posts = getAllPosts();
 ```
 
 #### エラーハンドリングの追加
