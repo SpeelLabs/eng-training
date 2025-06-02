@@ -25,6 +25,7 @@
   * [5. 新規投稿機能の完成](servlet/module-03/5-no.md)
   * [6. アプリケーションの外観改善](servlet/module-03/6-apurikshonno.md)
 * [パート 2：データ永続化と応用機能](servlet/pto-2dtato.md)
+* [準備](servlet/zhun-bei.md)
 * [Module 4: データベース連携](servlet/module-4-dtabsu/README.md)
   * [1. データベース設計と環境構築](servlet/module-4-dtabsu/1-dtabsuto.md)
   * [2. 投稿一覧表示のデータベース対応](servlet/module-4-dtabsu/2-nodtabsu.md)
